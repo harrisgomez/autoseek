@@ -13,21 +13,24 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            urlVal: ''
+            urlInput: '',
+            imgUrl: ''
         };
     }
 
     handleUrlChange = (e) => {
-        this.setState({ urlVal: e.target.value });
+        this.setState({ urlInput: e.target.value });
     };
 
     handleUrlSubmit = () => {
+        this.setState({ imgUrl: this.state.urlInput });
         app.models.predict(
-            Clarifai.COLOR_MODEL,
-            "https://samples.clarifai.com/face-det.jpg"
+            Clarifai.FACE_DETECT_MODEL,
+            this.state.urlInput
+            // "https://samples.clarifai.com/face-det.jpg"
         ).then(
             function (response) {
-                console.log(response);
+                console.log(response.outputs[0].data.regions[0].region_info.bounding_box);
             },
             function (err) {
                 // there was an error
@@ -44,10 +47,10 @@ class App extends Component {
                 <Logo />
                 <ImageLinkForm
                     onUrlChange={this.handleUrlChange}
-                    urlVal={this.state.urlVal}
+                    urlInput={this.state.urlInput}
                     onUrlSubmit={this.handleUrlSubmit}
                 />
-                <FaceRecognition />
+                <FaceRecognition imgUrl={this.state.imgUrl} />
             </div>
         );
     }

@@ -10,33 +10,42 @@ import './App.css';
 import 'tachyons';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            urlInput: '',
-            imgUrl: ''
-        };
-    }
+    state = {
+        urlInput: '',
+        imgUrl: '',
+        box: {}
+    };
 
     handleUrlChange = (e) => {
         this.setState({ urlInput: e.target.value });
     };
 
+    //* https://samples.clarifai.com/face-det.jpg
     handleUrlSubmit = () => {
         this.setState({ imgUrl: this.state.urlInput });
         app.models.predict(
             Clarifai.FACE_DETECT_MODEL,
             this.state.urlInput
-            // "https://samples.clarifai.com/face-det.jpg"
-        ).then(
-            function (response) {
-                console.log(response.outputs[0].data.regions[0].region_info.bounding_box);
-            },
-            function (err) {
-                // there was an error
-            }
-        );
+        )
+            .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+            .catch(err => console.log(err));
+    };
 
+    calculateFaceLocation = (data) => {
+        const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+        const img = document.getElementById('inputImg');
+        const width = Number(img.width);
+        const height = Number(img.height);
+        return {
+            leftCol: clarifaiFace.left_col * width,
+            topRow: clarifaiFace.top_row * height,
+            rightCol: width - (clarifaiFace.right_col * width),
+            botRow: height - (clarifaiFace.bottom_row * height)
+        };
+    };
+
+    displayFaceBox = (box) => {
+        this.setState({ box });
     };
 
     render() {
@@ -50,7 +59,7 @@ class App extends Component {
                     urlInput={this.state.urlInput}
                     onUrlSubmit={this.handleUrlSubmit}
                 />
-                <FaceRecognition imgUrl={this.state.imgUrl} />
+                <FaceRecognition imgUrl={this.state.imgUrl} box={this.state.box} />
             </div>
         );
     }

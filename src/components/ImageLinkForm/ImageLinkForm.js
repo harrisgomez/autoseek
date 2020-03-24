@@ -3,7 +3,7 @@ import "./ImageLinkForm.css";
 
 const ImageLinkForm = ({ onUrlChange, urlInput, onUrlSubmit }) => {
     return (
-        <div className='form shadow-5 w-60 center tc' style={{ 'border': '1px solid red' }}>
+        <div className='form w-60 center tc'>
             <div>
                 <p className="f3">
                     {'This Magic Album will detect faces in your pictures. Upload a photo or an entire album and give it a try!'}

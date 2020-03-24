@@ -1,6 +1,6 @@
 import React from 'react';
 import Tilt from 'react-tilt';
-import brochure from './brochure_icon.png'
+import brochure from './brochure_icon.png';
 import './Logo.css';
 
 export const Logo = () => {

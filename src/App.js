@@ -1,47 +1,56 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Logo from "./components/Logo/Logo";
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
+import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Particles from 'react-particles-js';
+import Clarifai from 'clarifai';
+import { app, particleOptions } from './constants/constants';
 import './App.css';
 import 'tachyons';
 
-const particleOptions = {
-    particles: {
-        number: {
-            value: 100,
-            density: {
-                enable: true,
-                value_area: 1200,
-                draw: true
-            }
-        }
-    },
-    interactivity: {
-        events: {
-            onhover: {
-                enable: true,
-                mode: 'repulse'
-            }
-        },
-        modes: {
-            repulse: {
-                distance: 200
-            }
-        }
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            urlVal: ''
+        };
     }
-};
 
-function App() {
-    return (
-        <div className="App">
-            <Particles className='particles' params={particleOptions} />
-            <Navigation />
-            <Logo />
-            <ImageLinkForm />
-            {/* <FaceRecognitin /> */}
-        </div>
-    )
+    handleUrlChange = (e) => {
+        this.setState({ urlVal: e.target.value });
+    };
+
+    handleUrlSubmit = () => {
+        app.models.predict(
+            Clarifai.COLOR_MODEL,
+            "https://samples.clarifai.com/face-det.jpg"
+        ).then(
+            function (response) {
+                console.log(response);
+            },
+            function (err) {
+                // there was an error
+            }
+        );
+
+    };
+
+    render() {
+        return (
+            <div className="App">
+                <Particles className='particles' params={particleOptions} />
+                <Navigation />
+                <Logo />
+                <ImageLinkForm
+                    onUrlChange={this.handleUrlChange}
+                    urlVal={this.state.urlVal}
+                    onUrlSubmit={this.handleUrlSubmit}
+                />
+                <FaceRecognition />
+            </div>
+        );
+    }
 }
 
 export default App;

@@ -7,7 +7,7 @@ app.use(express.json());
 const db = {
     users: [
         {
-            id: 123,
+            id: '123',
             name: 'Ash',
             email: 'ash@gmail.com',
             password: 'pikachu',
@@ -15,7 +15,7 @@ const db = {
             joined: new Date()
         },
         {
-            id: 124,
+            id: '124',
             name: 'Gary',
             email: 'gary@gmail.com',
             password: 'squirtle',
@@ -28,6 +28,17 @@ const db = {
 app.get('/', (req, res) => {
     console.log('Home');
     res.json(db.users);
+});
+
+app.get('/profile/:id', (req, res) => {
+    const { id } = req.params;
+    const user = db.users.find(userObj => userObj.id === id);
+
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(404).json('No such user found.');
+    }
 });
 
 app.post('/signin', (req, res) => {
@@ -57,7 +68,7 @@ app.put('/register', (req, res) => {
             entries: 0,
             joined: new Date()
         };
-               
+
         usersArr.push(newUser);
         res.status(200).json('Successfully registered account.');
     } else {

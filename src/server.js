@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const bcrypt = require('bcryptjs');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -11,7 +12,7 @@ const db = {
             name: 'Ash',
             email: 'ash@gmail.com',
             password: 'pikachu',
-            entries: 0,
+            album: [],
             joined: new Date()
         },
         {
@@ -26,8 +27,7 @@ const db = {
 };
 
 app.get('/', (req, res) => {
-    console.log('Home');
-    res.json(db.users);
+    res.json(db);
 });
 
 app.get('/profile/:id', (req, res) => {
@@ -35,45 +35,66 @@ app.get('/profile/:id', (req, res) => {
     const user = db.users.find(userObj => userObj.id === id);
 
     if (user) {
-        res.json(user);
+        res.status(200).json(user);
     } else {
         res.status(404).json('No such user found.');
     }
 });
 
 app.post('/signin', (req, res) => {
-    const isValidEmail = req.body.email === db.users[0].email;
-    const isValidPassword = req.body.password === db.users[0].password;
-
-    if (isValidEmail && isValidPassword) {
-        res.json('Successful signin');
-    } else if (!isValidEmail) {
-        res.status(400).json('An account with that email does not exist.');
-    } else if (!isValidPassword) {
-        res.status(400).json('Incorrect email/password combination.')
+    if (!db.users.length) {
+        res.status(400).json('There was a problem signing in. That email/password combination does not exist. Please try again.');
     }
+
+    db.users.forEach(user => {
+        bcrypt.compare(req.body.password, user.password)
+            .then(result => {
+                result && res.status(200).json(result);
+            })
+            .catch(err => res.status(400).json(result));
+    });
 });
 
-app.put('/register', (req, res) => {
-    const usersArr = db.users;
-    const isEmailTaken = usersArr.some(({ email }) => req.body.email === email);
-    const { id, name, email, password } = req.body;
-
+app.post('/register', (req, res) => {
+    const isEmailTaken = db.users.some(({ email }) => req.body.email === email);
+    const { name, email, password } = req.body;
+    const newUser = {
+        id: parseInt(db.users.length + 1),
+        name,
+        email,
+        password,
+        album: []
+    };
+    
     if (!isEmailTaken) {
-        const newUser = {
-            id,
-            name,
-            email,
-            password,
-            entries: 0,
-            joined: new Date()
-        };
-
-        usersArr.push(newUser);
-        res.status(200).json('Successfully registered account.');
+        bcrypt.genSalt(10, (err, salt) => {
+            if (err) throw err;
+            bcrypt.hash(password, salt, (err, hash) => {
+                if (err) throw err;
+                newUser.password = hash;
+                db.users.push(newUser);
+                return res.status(200).json('Successfully registered account.');
+            });
+        });
     } else {
-        res.status(400).json('That account already exists.');
+        res.status(400).json('That email is unavailable.');
     }
+
+
+    // if (!isEmailTaken) {
+    //     const newUser = {
+    //         id,
+    //         name,
+    //         email,
+    //         password,
+    //         entries: 0,
+    //         joined: new Date()
+    //     };
+
+    //     res.status(200).json('Successfully registered account.');
+    // } else {
+    //     res.status(400).json('That email is unavailable. Please try again.');
+    // }
 });
 
 const port = process.env.PORT || 3000;

@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
 const bcrypt = require('bcryptjs');
+const cors = require('cors');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors);
 
 const db = {
     users: [
@@ -79,22 +81,6 @@ app.post('/register', (req, res) => {
     } else {
         res.status(400).json('That email is unavailable.');
     }
-
-
-    // if (!isEmailTaken) {
-    //     const newUser = {
-    //         id,
-    //         name,
-    //         email,
-    //         password,
-    //         entries: 0,
-    //         joined: new Date()
-    //     };
-
-    //     res.status(200).json('Successfully registered account.');
-    // } else {
-    //     res.status(400).json('That email is unavailable. Please try again.');
-    // }
 });
 
 const port = process.env.PORT || 3000;

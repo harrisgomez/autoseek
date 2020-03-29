@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Navigation from './components/Navigation/Navigation';
-import Signin from './components/Signin/Signin';
-import Register from './components/Register/Register';
-import Logo from "./components/Logo/Logo";
-import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
-import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
+import Navigation from '../components/Navigation/Navigation';
+import Signin from '../components/Signin/Signin';
+import Register from '../components/Register/Register';
+import Logo from "../components/Logo/Logo";
+import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
+import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
-import { app, particleOptions } from './constants/constants';
+import { app, particleOptions } from '../constants/constants';
 import './App.css';
 import 'tachyons';
 
@@ -19,6 +19,12 @@ class App extends Component {
         route: 'signin',
         isSignedIn: false
     };
+
+    componentDidMount() {
+        fetch('http://localhost:3000')
+            .then(res => res.json())
+            .then(json => console.log(json));
+    }
 
     handleUrlChange = (e) => {
         this.setState({ urlInput: e.target.value });

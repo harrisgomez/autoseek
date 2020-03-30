@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config({ path: './client/.env' });
-}
-
 const express = require('express');
 const app = express();
 const bcrypt = require('bcryptjs');
@@ -71,7 +67,7 @@ app.post('/register', (req, res) => {
         password,
         album: []
     };
-    
+
     if (!isEmailTaken) {
         bcrypt.genSalt(10, (err, salt) => {
             if (err) throw err;
@@ -87,7 +83,7 @@ app.post('/register', (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 

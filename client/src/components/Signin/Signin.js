@@ -7,13 +7,32 @@ class Signin extends Component {
         signInPassword: ''
     }
     
-    onEmailChange = e => {
+    onEmailChange = e => {        
         this.setState({ signInEmail: e.target.value });
     }
 
-    onPasswordChange = e => {
+    onPasswordChange = e => {        
         this.setState({ signInPassword: e.target.value });
     }
+
+    handleSignInSubmit = () => {
+        fetch('/signin', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email: this.state.signInEmail,
+                password: this.state.signInPassword
+            })})
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data === 'Login successful.') {
+                    this.props.onRouteChange('home');
+                }
+            })
+            .catch(console.error)
+    };
+
     render() {
         const { onRouteChange } = this.props;
 
@@ -25,11 +44,25 @@ class Signin extends Component {
                             <legend className="f1 fw6 ph0 mh0">Sign In</legend>
                             <div className="mt3">
                                 <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                                <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address" id="email-address" />
+                                <input
+                                    id="email-address"
+                                    className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                                    type="email"
+                                    name="email-address"
+                                    onChange={this.onEmailChange}
+                                    value={this.state.signInEmail}
+                                />
                             </div>
                             <div className="mv3">
                                 <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                                <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password" id="password" />
+                                <input
+                                    id="password"
+                                    className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                                    type="password"
+                                    name="password"
+                                    onChange={this.onPasswordChange}
+                                    value={this.state.signInPassword}
+                                />
                             </div>
                         </fieldset>
                         <div className="">
@@ -37,7 +70,7 @@ class Signin extends Component {
                                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                                 type="submit"
                                 value="Sign in"
-                                onClick={() => onRouteChange('home')}
+                                onClick={this.handleSignInSubmit}
                             />
                         </div>
                         <div className="lh-copy mt3">

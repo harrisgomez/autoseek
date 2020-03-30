@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config({ path: './client/.env' });
+}
+
 const express = require('express');
 const app = express();
 const bcrypt = require('bcryptjs');
@@ -5,7 +9,7 @@ const cors = require('cors');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors);
+app.use(cors());
 
 const db = {
     users: [
@@ -29,7 +33,7 @@ const db = {
 };
 
 app.get('/', (req, res) => {
-    res.json(db);
+    res.status(200).json(db);
 });
 
 app.get('/profile/:id', (req, res) => {
@@ -51,9 +55,9 @@ app.post('/signin', (req, res) => {
     db.users.forEach(user => {
         bcrypt.compare(req.body.password, user.password)
             .then(result => {
-                result && res.status(200).json(result);
+                result && res.status(200).json('Sign in successful.');
             })
-            .catch(err => res.status(400).json(result));
+            .catch(err => res.status(400).json(err));
     });
 });
 
@@ -83,7 +87,7 @@ app.post('/register', (req, res) => {
     }
 });
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 

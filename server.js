@@ -9,22 +9,22 @@ app.use(cors());
 
 const db = {
     users: [
-        {
-            id: '123',
-            name: 'Ash',
-            email: 'ash@gmail.com',
-            password: 'pikachu',
-            album: [],
-            joined: new Date()
-        },
-        {
-            id: '124',
-            name: 'Gary',
-            email: 'gary@gmail.com',
-            password: 'squirtle',
-            entries: 0,
-            joined: new Date()
-        }
+        // {
+        //     id: '123',
+        //     name: 'Ash',
+        //     email: 'ash@gmail.com',
+        //     password: 'pikachu',
+        //     album: [],
+        //     joined: new Date()
+        // },
+        // {
+        //     id: '124',
+        //     name: 'Gary',
+        //     email: 'gary@gmail.com',
+        //     password: 'squirtle',
+        //     entries: 0,
+        //     joined: new Date()
+        // }
     ]
 };
 
@@ -44,25 +44,17 @@ app.get('/profile/:id', (req, res) => {
 });
 
 app.post('/signin', (req, res) => {
-    if (!db.users.length) {
-        res.status(400).json('There was a problem signing in. That email/password combination does not exist. Please try again.');
+    if (db.users.length) {
+        db.users.forEach(user => {
+            bcrypt.compare(req.body.password, user.password)
+                .then(isMatch => isMatch && res.status(200).json('Sign-in successful.'))
+                .catch(console.error);
+        });
+    } else {
+        res.status(400).json('Sign-in failed');
     }
 
-    db.users.some(user => {
-        if (user.email === req.body.email && user.password === req.body.password) {
-            return res.status(200).json('Login successful.');
-        } else {
-            return res.status(400).json('Login failed.')
-        }
-    })
 
-    // db.users.forEach(user => {        
-    //     bcrypt.compare(req.body.password, user.password)
-    //         .then(result => {
-    //             result && res.status(200).json('Sign in successful.');
-    //         })
-    //         .catch(err => res.status(400).json(err));
-    // });
 });
 
 app.post('/register', (req, res) => {

@@ -1,37 +1,38 @@
 import React, { Component } from 'react';
 import './Signin.css';
 
+import { handleFetchErrorsUtil } from '../../utils';
+
 class Signin extends Component {
     state = {
-        signInEmail: '',
-        signInPassword: ''
+        signInEmail: 'ash@gmail.com',
+        signInPassword: 'pika'
     }
-    
-    onEmailChange = e => {        
+
+    onEmailChange = e => {
         this.setState({ signInEmail: e.target.value });
     }
 
-    onPasswordChange = e => {        
+    onPasswordChange = e => {
         this.setState({ signInPassword: e.target.value });
     }
 
     handleSignInSubmit = () => {
         fetch('/signin', {
             method: 'post',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 email: this.state.signInEmail,
                 password: this.state.signInPassword
-            })})
-            .then(res => res.json())
+            })
+        })
+            .then(handleFetchErrorsUtil)
             .then(data => {
                 console.log(data);
-                if (data === 'Login successful.') {
-                    this.props.onRouteChange('home');
-                }
+                this.props.onRouteChange('home');
             })
-            .catch(console.error)
-    };
+            .catch(console.error);
+    }
 
     render() {
         const { onRouteChange } = this.props;
@@ -49,8 +50,8 @@ class Signin extends Component {
                                     className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                     type="email"
                                     name="email-address"
-                                    onChange={this.onEmailChange}
                                     value={this.state.signInEmail}
+                                    onChange={this.onEmailChange}
                                 />
                             </div>
                             <div className="mv3">
@@ -60,8 +61,8 @@ class Signin extends Component {
                                     className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                     type="password"
                                     name="password"
-                                    onChange={this.onPasswordChange}
                                     value={this.state.signInPassword}
+                                    onChange={this.onPasswordChange}
                                 />
                             </div>
                         </fieldset>

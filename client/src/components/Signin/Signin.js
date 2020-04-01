@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import './Signin.css';
+import React, { Component } from './node_modules/react';
+import './SignIn.css';
 
 import { handleFetchErrorsUtil } from '../../utils';
 
-class Signin extends Component {
+class SignIn extends Component {
     state = {
         signInEmail: 'ash@gmail.com',
         signInPassword: 'pika'
@@ -85,4 +85,4 @@ class Signin extends Component {
     }
 };
 
-export default Signin;
+export default SignIn;

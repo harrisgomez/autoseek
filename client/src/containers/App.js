@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navigation from '../components/Navigation/Navigation';
-import Signin from '../components/Signin/Signin';
+import SignIn from '../components/SignIn/SignIn';
 import Register from '../components/Register/Register';
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
@@ -108,7 +108,7 @@ class App extends Component {
                     greeting={<Greeting isSignedIn={isSignedIn} usersName={usersName} />}
                 />
                 {route === 'signin'
-                    ? <Signin loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />
+                    ? <SignIn loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />
                     : route === 'register'
                         ? <Register loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />
                         : (

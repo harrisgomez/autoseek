@@ -27,8 +27,9 @@ class Signin extends Component {
             })
         })
             .then(handleFetchErrorsUtil)
-            .then(data => {
-                console.log(data);
+            .then(user => {
+                console.log(user);
+                this.props.loadUser(user);
                 this.props.onRouteChange('home');
             })
             .catch(console.error);

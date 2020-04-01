@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
+import { handleFetchErrorsUtil } from '../../utils';
+
 class Register extends Component {
     state = {
-        email: '',
-        password: '',
-        name: ''
+        email: 'oak@gmail.com',
+        password: 'oak',
+        name: 'Oak'
     };
 
     onNameChange = e => {
@@ -26,7 +28,7 @@ class Register extends Component {
     }
 
     handleRegisterSubmit = () => {
-        console.log('registering');
+        console.log('registering...');
 
         fetch('/register', {
             method: 'post',
@@ -37,12 +39,11 @@ class Register extends Component {
                 name: this.state.name
             })
         })
-            .then(res => res.json())
+            .then(handleFetchErrorsUtil)
             .then(user => {
-                console.log(user);
-                if (user) {
-                    this.props.onRouteChange('home');
-                }
+                console.log('Register fetch', user);
+                this.props.loadUser(user);
+                this.props.onRouteChange('home');
             })
             .catch(console.error);
     }

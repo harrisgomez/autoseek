@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Navigation from '../components/Navigation/Navigation';
 import Signin from '../components/Signin/Signin';
 import Register from '../components/Register/Register';
-import Logo from "../components/Logo/Logo";
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
+import Header from './Header/Header';
+import Greeting from '../components/Greeting/Greeting';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import { particleOptions } from '../constants/constants';
@@ -21,7 +22,11 @@ class App extends Component {
         imgUrl: '',
         box: {},
         route: 'signin',
-        isSignedIn: false
+        isSignedIn: false,
+        user: {
+            name: '',
+            album: []
+        }
     };
 
     componentDidMount() {
@@ -30,19 +35,29 @@ class App extends Component {
             .then(json => console.log(json));
     }
 
+    loadUser = user => {
+        const { name, album } = user;
+        console.log('loaded', name, album);
+
+        this.setState(Object.assign(this.state.user, {
+            name, album
+        }));
+    }
+
     handleUrlChange = (e) => {
         this.setState({ urlInput: e.target.value });
-    };
+    }
 
     handleUrlSubmit = () => {
         this.setState({ imgUrl: this.state.urlInput });
+
         clarifaiApp.models.predict(
             Clarifai.FACE_DETECT_MODEL,
             this.state.urlInput
         )
             .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
             .catch(err => console.log(err));
-    };
+    }
 
     handleRouteChange = route => {
         if (route === 'signin') {
@@ -51,7 +66,7 @@ class App extends Component {
             this.setState({ isSignedIn: true });
         }
         this.setState({ route });
-    };
+    }
 
     calculateFaceLocation = (data) => {
         const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -64,30 +79,46 @@ class App extends Component {
             rightCol: width - (clarifaiFace.right_col * width),
             botRow: height - (clarifaiFace.bottom_row * height)
         };
-    };
+    }
 
     displayFaceBox = (box) => {
         this.setState({ box });
-    };
+    }
+
+    /* 
+    todo    Specific (Header) renders Greeting (Greeting)
+    todo    Greeting renders user name and album from props
+    */
 
     render() {
+        const {
+            isSignedIn,
+            route,
+            urlInput,
+            imgUrl,
+            box,
+            user: { name: usersName }
+        } = this.state;
+
         return (
             <div className="App">
                 <Particles className='particles' params={particleOptions} />
-                <Navigation onRouteChange={this.handleRouteChange} isSignedIn={this.state.isSignedIn} />
-                <Logo />
-                {this.state.route === 'signin'
-                    ? <Signin onRouteChange={this.handleRouteChange} />
-                    : this.state.route === 'register'
-                        ? <Register onRouteChange={this.handleRouteChange} />
+                <Navigation onRouteChange={this.handleRouteChange} isSignedIn={isSignedIn} />
+                <Header
+                    greeting={<Greeting isSignedIn={isSignedIn} usersName={usersName} />}
+                />
+                {route === 'signin'
+                    ? <Signin loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />
+                    : route === 'register'
+                        ? <Register loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />
                         : (
                             <div>
                                 <ImageLinkForm
+                                    urlInput={urlInput}
                                     onUrlChange={this.handleUrlChange}
-                                    urlInput={this.state.urlInput}
                                     onUrlSubmit={this.handleUrlSubmit}
                                 />
-                                <FaceRecognition imgUrl={this.state.imgUrl} box={this.state.box} />
+                                <FaceRecognition imgUrl={imgUrl} box={box} />
                             </div>
                         )
                 }

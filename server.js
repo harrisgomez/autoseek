@@ -10,19 +10,19 @@ app.use(cors());
 const db = {
     users: [
         // {
-        //     id: '123',
-        //     name: 'Ash',
-        //     email: 'ash@gmail.com',
-        //     password: 'pikachu',
-        //     album: [],
-        //     joined: new Date()
-        // },
-        // {
         //     id: '124',
         //     name: 'Gary',
         //     email: 'gary@gmail.com',
         //     password: 'squirtle',
         //     entries: 0,
+        //     joined: new Date()
+        // },
+        // {
+        //     id: '123',
+        //     name: 'ash',
+        //     email: 'ash@gmail.com',
+        //     password: 'pika',
+        //     album: [],
         //     joined: new Date()
         // }
     ]
@@ -47,14 +47,12 @@ app.post('/signin', (req, res) => {
     if (db.users.length) {
         db.users.forEach(user => {
             bcrypt.compare(req.body.password, user.password)
-                .then(isMatch => isMatch && res.status(200).json('Sign-in successful.'))
+                .then(isMatch => isMatch && res.status(200).json(user))
                 .catch(console.error);
         });
     } else {
-        res.status(400).json('Sign-in failed');
+        res.status(400).json('There was a problem signing in');
     }
-
-
 });
 
 app.post('/register', (req, res) => {
@@ -70,12 +68,11 @@ app.post('/register', (req, res) => {
 
     if (!isEmailTaken) {
         bcrypt.genSalt(10, (err, salt) => {
-            if (err) throw err;
+            console.log('salt generated', salt);
             bcrypt.hash(password, salt, (err, hash) => {
-                if (err) throw err;
                 newUser.password = hash;
                 db.users.push(newUser);
-                return res.status(200).json('Successfully registered account.');
+                return res.status(200).json(newUser);
             });
         });
     } else {

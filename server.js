@@ -2,6 +2,16 @@ const express = require('express');
 const app = express();
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
+const knex = require('knex')({
+    client: 'pg',
+    connection: {
+        host: '127.0.0.1',
+        user: 'your_database_user',
+        password: 'your_database_password',
+        database: 'myapp_test'
+    }
+});
+
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

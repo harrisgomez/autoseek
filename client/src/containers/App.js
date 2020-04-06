@@ -85,11 +85,6 @@ class App extends Component {
         this.setState({ box });
     }
 
-    /* 
-    todo    Specific (Header) renders Greeting (Greeting)
-    todo    Greeting renders user name and album from props
-    */
-
     render() {
         const {
             isSignedIn,

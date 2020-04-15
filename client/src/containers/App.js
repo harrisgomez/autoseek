@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from '../components/Navigation/Navigation';
-import SignIn from '../components/SignIn/SignIn';
-import Register from '../components/Register/Register';
+import SignIn from './SignIn/SignIn';
+import Register from './Register/Register';
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
 import Header from './Header/Header';

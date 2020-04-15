@@ -4,7 +4,7 @@ import Logo from '../../components/Logo/Logo';
 export default class Header extends Component {
     render() {
         return (
-            <div class='f1 white'>
+            <div className='f1 white'>
                 <Logo />
                 <h1>{this.props.greeting}</h1>
             </div>

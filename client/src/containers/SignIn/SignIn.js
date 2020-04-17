@@ -18,6 +18,7 @@ class SignIn extends Component {
     }
 
     handleSignInSubmit = () => {
+        const { loadUser, onRouteChange } = this.props;
         const {
             signInEmail: email,
             signInPassword: password
@@ -33,8 +34,8 @@ class SignIn extends Component {
         })
             .then(handleFetchErrorsUtil)
             .then(user => {
-                this.props.loadUser(user);
-                this.props.onRouteChange('home');
+                loadUser(user);
+                onRouteChange('home');
             })
             .catch(console.error);
     }

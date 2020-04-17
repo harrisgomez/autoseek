@@ -3,9 +3,9 @@ import { handleFetchErrorsUtil } from '../../utils';
 
 class Register extends Component {
     state = {
-        email: 'oak@gmail.com',
-        password: 'oak',
-        name: 'Oak'
+        name: '',
+        email: '',
+        password: '',
     };
 
     onNameChange = e => {
@@ -21,25 +21,25 @@ class Register extends Component {
     }
 
     handleRegisterSubmit = () => {
+        const { loadUser, onRouteChange } = this.props;
+        const { name, email, password } = this.state;
+
         fetch('/register', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password,
-                name: this.state.name
-            })
+            body: JSON.stringify({ name, email, password })
         })
             .then(handleFetchErrorsUtil)
             .then(user => {
-                this.props.loadUser(user);
-                this.props.onRouteChange('home');
+                loadUser(user);
+                onRouteChange('home');
             })
             .catch(console.error);
     }
 
     render() {
         const { name, email, password } = this.state;
+
         return (
             <article className="signin br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
                 <main className="pa4 black-80">

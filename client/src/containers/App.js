@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Navigation from '../components/Navigation/Navigation';
-import SignIn from './SignIn/SignIn';
-import Register from './Register/Register';
-import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
-import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
-import Header from './Header/Header';
+import Navigation from '../components/nav/Navigation';
+import Header from '../components/header/Header.js';
+import SignIn from './signIn/SignIn';
+import Register from './register/Register';
+import ImageLinkForm from '../components/imageLinkForm/ImageLinkForm';
+import FaceRecognition from "../components/faceRecognition/FaceRecognition";
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
-import { particleOptions } from '../constants/constants';
+import { particlesConfig } from '../lib';
 import './App.css';
 import 'tachyons';
 
@@ -30,26 +30,24 @@ class App extends Component {
 
     loadUser = user => {
         const { name, album } = user;
-        console.log('loaded', name, album);
 
         this.setState(Object.assign(this.state.user, {
             name, album
         }));
     }
 
-    handleUrlChange = (e) => {
+    handleUrlChange = e => {
         this.setState({ urlInput: e.target.value });
     }
 
     handleUrlSubmit = () => {
-        this.setState({ imgUrl: this.state.urlInput });
+        const { urlInput: imgUrl } = this.state;
 
-        clarifaiApp.models.predict(
-            Clarifai.FACE_DETECT_MODEL,
-            this.state.urlInput
-        )
+        this.setState({ imgUrl });
+
+        clarifaiApp.models.predict(Clarifai.FACE_DETECT_MODEL, imgUrl)
             .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
-            .catch(err => console.log(err));
+            .catch(console.error);
     }
 
     handleRouteChange = route => {
@@ -58,6 +56,7 @@ class App extends Component {
         } else if (route === 'home') {
             this.setState({ isSignedIn: true });
         }
+
         this.setState({ route });
     }
 
@@ -66,6 +65,7 @@ class App extends Component {
         const img = document.getElementById('inputImg');
         const width = Number(img.width);
         const height = Number(img.height);
+
         return {
             leftCol: clarifaiFace.left_col * width,
             topRow: clarifaiFace.top_row * height,
@@ -74,7 +74,7 @@ class App extends Component {
         };
     }
 
-    displayFaceBox = (box) => {
+    displayFaceBox = box => {
         this.setState({ box });
     }
 
@@ -88,16 +88,18 @@ class App extends Component {
             user: { name: usersName }
         } = this.state;
 
+        // * Testing out the enumerable alternative of conditional rendering. Looks much nicer.
+
         return (
             <div className="App">
-                <Particles className='particles' params={particleOptions} />
+                <Particles className='particles' params={particlesConfig} />
                 <Navigation onRouteChange={this.handleRouteChange} isSignedIn={isSignedIn} />
                 <Header usersName={usersName} />
-                {route === 'signin'
-                    ? <SignIn loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />
-                    : route === 'register'
-                        ? <Register loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />
-                        : (
+                {
+                    {
+                        'signin': <SignIn loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />,
+                        'register': <Register loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />,
+                        'home': (
                             <div>
                                 <ImageLinkForm
                                     urlInput={urlInput}
@@ -107,6 +109,7 @@ class App extends Component {
                                 <FaceRecognition imgUrl={imgUrl} box={box} />
                             </div>
                         )
+                    }[route]
                 }
             </div>
         );

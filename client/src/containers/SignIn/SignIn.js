@@ -5,8 +5,8 @@ import { handleFetchErrorsUtil } from '../../utils';
 
 class SignIn extends Component {
     state = {
-        signInEmail: 'ash@gmail.com',
-        signInPassword: 'pika'
+        signInEmail: '',
+        signInPassword: ''
     }
 
     onEmailChange = e => {
@@ -18,17 +18,21 @@ class SignIn extends Component {
     }
 
     handleSignInSubmit = () => {
+        const {
+            signInEmail: email,
+            signInPassword: password
+        } = this.state;
+
         fetch('/signin', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                email: this.state.signInEmail,
-                password: this.state.signInPassword
+                email,
+                password
             })
         })
             .then(handleFetchErrorsUtil)
             .then(user => {
-                console.log(user);
                 this.props.loadUser(user);
                 this.props.onRouteChange('home');
             })
@@ -37,6 +41,7 @@ class SignIn extends Component {
 
     render() {
         const { onRouteChange } = this.props;
+        const { signInEmail, signInPassword } = this.state;
 
         return (
             <article className="signin br3 ba b--black-10 mv6 w-100 w-50-m w-50-l mw6 shadow-5 center z-0">
@@ -51,7 +56,7 @@ class SignIn extends Component {
                                     className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                     type="email"
                                     name="email-address"
-                                    value={this.state.signInEmail}
+                                    value={signInEmail}
                                     onChange={this.onEmailChange}
                                 />
                             </div>
@@ -62,7 +67,7 @@ class SignIn extends Component {
                                     className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                     type="password"
                                     name="password"
-                                    value={this.state.signInPassword}
+                                    value={signInPassword}
                                     onChange={this.onPasswordChange}
                                 />
                             </div>

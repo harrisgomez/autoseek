@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { handleFetchErrorsUtil } from '../../utils';
 
 class Register extends Component {
@@ -40,6 +39,7 @@ class Register extends Component {
     }
 
     render() {
+        const { name, email, password } = this.state;
         return (
             <article className="signin br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
                 <main className="pa4 black-80">
@@ -53,7 +53,7 @@ class Register extends Component {
                                     className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                     type="text"
                                     name="name"
-                                    value={this.state.name}
+                                    value={name}
                                     onChange={this.onNameChange}
                                 />
                             </div>
@@ -64,7 +64,7 @@ class Register extends Component {
                                     className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                     type="email"
                                     name="email"
-                                    value={this.state.email}
+                                    value={email}
                                     onChange={this.onEmailChange}
                                 />
                             </div>
@@ -75,7 +75,7 @@ class Register extends Component {
                                     className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                     type="password"
                                     name="password"
-                                    value={this.state.password}
+                                    value={password}
                                     onChange={this.onPasswordChange}
                                 />
                             </div>

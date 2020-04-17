@@ -1,4 +1,4 @@
-export const particleOptions = {
+export default {
     particles: {
         number: {
             value: 100,

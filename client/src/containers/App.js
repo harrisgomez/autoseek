@@ -5,7 +5,6 @@ import Register from './Register/Register';
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
 import Header from './Header/Header';
-import Greeting from '../components/Greeting/Greeting';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import { particleOptions } from '../constants/constants';
@@ -93,9 +92,7 @@ class App extends Component {
             <div className="App">
                 <Particles className='particles' params={particleOptions} />
                 <Navigation onRouteChange={this.handleRouteChange} isSignedIn={isSignedIn} />
-                <Header
-                    greeting={<Greeting isSignedIn={isSignedIn} usersName={usersName} />}
-                />
+                <Header usersName={usersName} />
                 {route === 'signin'
                     ? <SignIn loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />
                     : route === 'register'

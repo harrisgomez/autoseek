@@ -10,26 +10,18 @@ class Register extends Component {
     };
 
     onNameChange = e => {
-        console.log(e.target.value);
-
         this.setState({ name: e.target.value })
     }
 
     onEmailChange = e => {
-        console.log(e.target.value);
-
         this.setState({ email: e.target.value })
     }
 
     onPasswordChange = e => {
-        console.log(e.target.value);
-
         this.setState({ password: e.target.value })
     }
 
     handleRegisterSubmit = () => {
-        console.log('registering...');
-
         fetch('/register', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
@@ -41,7 +33,6 @@ class Register extends Component {
         })
             .then(handleFetchErrorsUtil)
             .then(user => {
-                console.log('Register fetch', user);
                 this.props.loadUser(user);
                 this.props.onRouteChange('home');
             })

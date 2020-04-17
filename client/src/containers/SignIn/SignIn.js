@@ -39,7 +39,7 @@ class SignIn extends Component {
         const { onRouteChange } = this.props;
 
         return (
-            <article className="signin br3 ba b--black-10 mv6 w-100 w-50-m w-50-l mw6 shadow-5 center">
+            <article className="signin br3 ba b--black-10 mv6 w-100 w-50-m w-50-l mw6 shadow-5 center z-0">
                 <main className="pa4 black-80">
                     <div className="measure">
                         <fieldset id="sign_up" className="ba b--transparent ph0 mh0">

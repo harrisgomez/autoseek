@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Logo from '../../components/Logo/Logo';
+import Greeting from '../../components/Greeting/Greeting';
 
-export default class Header extends Component {
-    render() {
-        return (
-            <div className='f1 white'>
-                <Logo />
-                <h1>{this.props.greeting}</h1>
-            </div>
-        );
-    }
+const Header = ({isSignedIn, usersName}) => {
+    return (
+        <div className='f1 white relative z-0'>
+            <Logo />
+            <Greeting isSignedIn={isSignedIn} usersName={usersName} />
+        </div>
+    );
 };
+
+export default Header;

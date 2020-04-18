@@ -2,7 +2,7 @@ export default {
     options: { max: 50 },
     styles: {
         display: 'flex',
-        height: 125,
-        width: 125
+        height: 100,
+        width: 100
     }
 }

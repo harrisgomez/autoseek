@@ -15,18 +15,20 @@ export const clarifaiApp = new Clarifai.App({
     apiKey: `${process.env.REACT_APP_CLARIFAI_KEY}`
 });
 
+const initState = {
+    inputUrl: '',
+    imgUrl: '',
+    box: {},
+    route: 'signin',
+    isSignedIn: false,
+    user: {
+        name: '',
+        album: []
+    }
+};
+
 class App extends Component {
-    state = {
-        urlInput: '',
-        imgUrl: '',
-        box: {},
-        route: 'signin',
-        isSignedIn: false,
-        user: {
-            name: '',
-            album: []
-        }
-    };
+    state = initState;
 
     loadUser = user => {
         const { name, album } = user;
@@ -37,15 +39,15 @@ class App extends Component {
     }
 
     handleUrlChange = e => {
-        this.setState({ urlInput: e.target.value });
+        this.setState({ inputUrl: e.target.value });
     }
 
     handleUrlSubmit = () => {
-        const { urlInput: imgUrl } = this.state;
+        const { inputUrl } = this.state;
 
-        this.setState({ imgUrl });
+        this.setState({ imgUrl: inputUrl });
 
-        clarifaiApp.models.predict(Clarifai.FACE_DETECT_MODEL, imgUrl)
+        clarifaiApp.models.predict(Clarifai.FACE_DETECT_MODEL, inputUrl)
             .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
             .catch(console.error);
     }

@@ -10,10 +10,7 @@
     .tilt {
         display: inline-flex;
         position: relative;
-        /* margin-top: 24px; */
-        /* width: 65px; */
         margin-left: 0 !important;
-        /* margin-bottom: 0 !important; */
     }
 }
 

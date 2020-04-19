@@ -7,9 +7,8 @@ import './Logo.css';
 const Logo = () => {
     return (
         <Tilt
-            className='tilt center br2 shadow-3'
+            className='tilt br2 shadow-5 ml4 mb4'
             options={tiltConfig.options}
-            style={tiltConfig.styles}
         >
             <div className='relative'>
                 <img className='brochure' src={brochure} alt="logo" />

@@ -16,7 +16,7 @@ export const clarifaiApp = new Clarifai.App({
 });
 
 const initState = {
-    inputUrl: '',
+    urlInput: '',
     imgUrl: '',
     box: {},
     route: 'signin',
@@ -33,28 +33,26 @@ class App extends Component {
     loadUser = user => {
         const { name, album } = user;
 
-        this.setState(Object.assign(this.state.user, {
-            name, album
-        }));
+        this.setState({ name, album });
     }
 
     handleUrlChange = e => {
-        this.setState({ inputUrl: e.target.value });
+        this.setState({ urlInput: e.target.value });
     }
 
     handleUrlSubmit = () => {
-        const { inputUrl } = this.state;
+        const { urlInput } = this.state;
 
-        this.setState({ imgUrl: inputUrl });
+        this.setState({ imgUrl: urlInput });
 
-        clarifaiApp.models.predict(Clarifai.FACE_DETECT_MODEL, inputUrl)
+        clarifaiApp.models.predict(Clarifai.FACE_DETECT_MODEL, urlInput)
             .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
             .catch(console.error);
     }
 
     handleRouteChange = route => {
-        if (route === 'signin') {
-            this.setState({ isSignedIn: false });
+        if (route === 'signout') {
+            this.setState(initState);
         } else if (route === 'home') {
             this.setState({ isSignedIn: true });
         }

@@ -1,10 +1,11 @@
 import React from 'react';
+import './Greeting.css';
 
 const Greeting = props => {
     const { isSignedIn, usersName } = props;
 
     if (!isSignedIn) {
-        return <h1>{"Welcome to Facefacts"}</h1>;
+        return <div className='hide'><h1>{"Welcome to Facefacts"}</h1></div>;
     }
 
     return <h1>{`Hi ${usersName}`}</h1>;

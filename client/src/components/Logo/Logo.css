@@ -1,5 +1,20 @@
+
 .tilt {
+    display: flex;
+    position: absolute;
+    width: 80px;
     background: linear-gradient(89deg, #FF5EDF 0%, #04C8DE 100%);
+}
+
+@media only screen and (max-width: 600px) {
+    .tilt {
+        display: inline-flex;
+        position: relative;
+        /* margin-top: 24px; */
+        /* width: 65px; */
+        margin-left: 0 !important;
+        /* margin-bottom: 0 !important; */
+    }
 }
 
 .brochure {

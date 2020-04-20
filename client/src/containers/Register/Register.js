@@ -31,8 +31,8 @@ class Register extends Component {
             body: JSON.stringify({ name, email, password })
         })
             .then(handleFetchErrorsUtil)
-            .then(user => {
-                if (user.id) {
+            .then(user => {                
+                if (user.id) {                    
                     loadUser(user);
                     onRouteChange('home');
                 }

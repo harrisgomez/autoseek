@@ -1,7 +1,7 @@
 // Use this utility function for handling specific exceptions returned by a fetch response
-export default fetchResponse => {
+export default fetchResponse => {    
     if (fetchResponse.ok) {
-        return fetchResponse;
+        return fetchResponse.json();
     } else {
         throw new Error(fetchResponse.statusText);
     }

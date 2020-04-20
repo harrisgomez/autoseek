@@ -18,10 +18,10 @@ module.exports.handleRegisterRoute = (db, bcrypt) => (req, res) => {
                 trx.insert(loginInfo)
                     .into('login')
                     .returning('email')
-                    .then(loginEmail => {                        
+                    .then(loginEmail => {                           
                         const newUser = {
                             name,
-                            email: loginEmail,
+                            email: loginEmail[0],
                             joined: new Date()
                         };
 

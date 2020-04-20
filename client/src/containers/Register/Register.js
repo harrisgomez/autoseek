@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { handleFetchErrorsUtil } from '../../utils';
+import './Register.css';
 
 class Register extends Component {
     state = {
@@ -41,7 +42,7 @@ class Register extends Component {
         const { name, email, password } = this.state;
 
         return (
-            <article className="signin br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
+            <article className="register signin br3 ba b--black-10 mw6 w-100 w-50-m w-25-l mw6 shadow-5 center">
                 <main className="pa4 black-80">
                     <div className="measure">
                         <fieldset id="sign_up" className="ba b--transparent ph0 mh0">

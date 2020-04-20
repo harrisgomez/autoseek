@@ -30,7 +30,7 @@ class SignIn extends Component {
             body: JSON.stringify({ email, password })
         })
             .then(handleFetchErrorsUtil)
-            .then(user => {
+            .then(user => {                
                 loadUser(user);
                 onRouteChange('home');
             })

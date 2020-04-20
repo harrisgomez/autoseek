@@ -4,10 +4,10 @@ const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const knex = require('knex');
 
-const signIn = require('./controllers/signIn');
-const register = require('./controllers/register');
-const profile = require('./controllers/profile');
-const album = require('./controllers/album');
+const signIn = require('./routes/signIn');
+const register = require('./routes/register');
+const profile = require('./routes/profile');
+const album = require('./routes/album');
 
 // * MIDDLEWARE
 app.use(express.urlencoded({ extended: false }));
@@ -35,9 +35,8 @@ const db = knex({
 // db.select().from('users').then(console.log).catch(console.error);
 
 // * ROUTES
-//* req, res passed to routes from '/' after currying
-app.get('/', (req, res) => res.status(200).json(db));
-app.post('/signin', signIn.handleSignInRoute(db));
+app.get('/', (_req, res) => res.status(200).json(db));
+app.post('/signin', signIn.handleSignInRoute(db, bcrypt));
 app.post('/register', register.handleRegisterRoute(db, bcrypt));
 app.put('/album', album.handleAlbumRoute(db));
 app.get('/profile/:id', profile.handleProfileRoute(db));

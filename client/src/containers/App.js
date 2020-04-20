@@ -31,9 +31,10 @@ class App extends Component {
     state = initState;
 
     loadUser = user => {
-        const { name, album } = user;
+        const name = user && user.name;
+        const album = user && user.album;
 
-        this.setState({ name, album });
+        this.setState({ user: { name, album } });
     }
 
     handleUrlChange = e => {

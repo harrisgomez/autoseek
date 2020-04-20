@@ -30,9 +30,11 @@ class SignIn extends Component {
             body: JSON.stringify({ email, password })
         })
             .then(handleFetchErrorsUtil)
-            .then(user => {                
-                loadUser(user);
-                onRouteChange('home');
+            .then(user => {
+                if (user.id) {
+                    loadUser(user);
+                    onRouteChange('home');
+                }
             })
             .catch(console.error);
     }

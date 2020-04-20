@@ -32,8 +32,10 @@ class Register extends Component {
         })
             .then(handleFetchErrorsUtil)
             .then(user => {
-                loadUser(user);
-                onRouteChange('home');
+                if (user.id) {
+                    loadUser(user);
+                    onRouteChange('home');
+                }
             })
             .catch(console.error);
     }

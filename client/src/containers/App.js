@@ -19,7 +19,7 @@ const initState = {
     urlInput: '',
     imgUrl: '',
     box: {},
-    route: 'signin',
+    route: 'signIn',
     isSignedIn: false,
     user: {
         name: '',
@@ -52,7 +52,7 @@ class App extends Component {
     }
 
     handleRouteChange = route => {
-        if (route === 'signout') {
+        if (route === 'signIn') {
             this.setState(initState);
         } else if (route === 'home') {
             this.setState({ isSignedIn: true });
@@ -79,7 +79,7 @@ class App extends Component {
         this.setState({ box });
     }
 
-    render() {
+    render() {        
         const {
             isSignedIn,
             route,
@@ -98,7 +98,7 @@ class App extends Component {
                 <Header usersName={usersName} />
                 {
                     {
-                        'signin': <SignIn loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />,
+                        'signIn': <SignIn loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />,
                         'register': <Register loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />,
                         'home': (
                             <div>

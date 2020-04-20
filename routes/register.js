@@ -2,6 +2,10 @@ module.exports.handleRegisterRoute = (db, bcrypt) => (req, res) => {
     const { name, email, password } = req.body;
     const iterations = 10;
 
+    if (!name || !email || !password) {
+        return res.status(400).json('Incorrect form submission.');
+    }
+
     bcrypt.genSalt(iterations, (saltErr, salt) => {
         if (saltErr) return res.status(400).json('Salt generation error.', saltErr);
 

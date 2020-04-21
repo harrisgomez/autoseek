@@ -18,7 +18,7 @@ export const clarifaiApp = new Clarifai.App({
 const initState = {
     urlInput: '',
     imgUrl: '',
-    box: {},
+    boxesArr: [],
     route: 'signIn',
     isSignedIn: false,
     user: {
@@ -62,30 +62,40 @@ class App extends Component {
     }
 
     calculateFaceLocation = (data) => {
-        const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
         const img = document.getElementById('inputImg');
         const width = Number(img.width);
         const height = Number(img.height);
+        const boxRegionsArr = data.outputs[0].data.regions;
+        const boundingBoxArr = boxRegionsArr.map(region => {
+            const {
+                left_col,
+                top_row,
+                right_col,
+                bottom_row
+            } = region.region_info.bounding_box;   
+            
+            return {
+                leftCol: left_col * width,
+                topRow: top_row * height,
+                rightCol: width - (right_col * width),
+                botRow: height - (bottom_row * height)
+            };
+        });
 
-        return {
-            leftCol: clarifaiFace.left_col * width,
-            topRow: clarifaiFace.top_row * height,
-            rightCol: width - (clarifaiFace.right_col * width),
-            botRow: height - (clarifaiFace.bottom_row * height)
-        };
+        return boundingBoxArr;
     }
 
-    displayFaceBox = box => {
-        this.setState({ box });
+    displayFaceBox = boxes => {
+        this.setState({ boxes });
     }
 
-    render() {        
+    render() {
         const {
             isSignedIn,
             route,
             urlInput,
             imgUrl,
-            box,
+            boxes,
             user: { name: usersName }
         } = this.state;
 
@@ -107,7 +117,7 @@ class App extends Component {
                                     onUrlChange={this.handleUrlChange}
                                     onUrlSubmit={this.handleUrlSubmit}
                                 />
-                                <FaceRecognition imgUrl={imgUrl} box={box} />
+                                <FaceRecognition imgUrl={imgUrl} boxArr={boxes} />
                             </div>
                         )
                     }[route]

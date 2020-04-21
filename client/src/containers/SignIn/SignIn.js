@@ -5,8 +5,8 @@ import { handleFetchErrorsUtil } from '../../utils';
 
 class SignIn extends Component {
     state = {
-        signInEmail: '',
-        signInPassword: ''
+        signInEmail: 'test@gmail.com',
+        signInPassword: 'test'
     }
 
     onEmailChange = e => {

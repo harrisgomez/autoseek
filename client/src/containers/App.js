@@ -75,6 +75,7 @@ class App extends Component {
             } = region.region_info.bounding_box;   
             
             return {
+                id: region.id,
                 leftCol: left_col * width,
                 topRow: top_row * height,
                 rightCol: width - (right_col * width),
@@ -85,7 +86,7 @@ class App extends Component {
         return boundingBoxArr;
     }
 
-    displayFaceBox = boxes => {
+    displayFaceBox = boxes => {        
         this.setState({ boxes });
     }
 

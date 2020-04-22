@@ -13,7 +13,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
      ```REACT_APP_CLARIFAI_KEY="<YOUR_API_KEY_HERE>"```
 
-   __OR__
+     __OR__
 
    * Insert it into the Clarifai instance directly in the */client/src/container/App.js* file on *Lines 14-16*
 

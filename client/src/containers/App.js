@@ -33,7 +33,7 @@ class App extends Component {
     loadUser = user => {
         const name = user && user.name;
         const album = user && user.album;
-
+        
         this.setState({ user: { name, album } });
     }
 
@@ -99,7 +99,7 @@ class App extends Component {
             boxes,
             user: { name: usersName }
         } = this.state;
-
+        
         // * Testing out the enumerable alternative of conditional rendering. Looks much nicer.
 
         return (

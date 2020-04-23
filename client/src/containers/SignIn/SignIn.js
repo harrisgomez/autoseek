@@ -24,19 +24,30 @@ class SignIn extends Component {
             signInPassword: password
         } = this.state;
 
-        fetch('/signin', {
-            method: 'post',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        })
-            .then(handleFetchErrorsUtil)
-            .then(user => {                
-                if (user.id) {                    
-                    loadUser(user);                    
-                    onRouteChange('home');
-                }
+        if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+            console.log('inside development');
+
+            
+            fetch('../../../../static/db.js')
+                .then(response => console.log(response))
+                .then(data => console.log(data))
+        } else {
+            fetch('/signin', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
             })
-            .catch(console.error);
+                .then(handleFetchErrorsUtil)
+                .then(user => {
+                    if (user.id) {
+                        loadUser(user);
+                        onRouteChange('home');
+                    }
+                })
+                .catch(console.error);
+        }
+
+
     }
 
     render() {

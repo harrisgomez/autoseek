@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { handleFetchErrorsUtil } from '../../utils';
+import { TestDb } from '../../res';
 import './Register.css';
 
 class Register extends Component {
@@ -25,19 +26,28 @@ class Register extends Component {
         const { loadUser, onRouteChange } = this.props;
         const { name, email, password } = this.state;
 
-        fetch('/register', {
-            method: 'post',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, password })
-        })
-            .then(handleFetchErrorsUtil)
-            .then(user => {                
-                if (user.id) {                    
-                    loadUser(user);
-                    onRouteChange('home');
-                }
+        if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+            const { name, email, password } = this.state;
+            const newUser = new TestDb(name, email, password).register();
+            
+            loadUser(newUser);
+            onRouteChange('home');
+        } else {            
+            fetch('/register', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
             })
-            .catch(console.error);
+                .then(handleFetchErrorsUtil)
+                .then(user => {                
+                    if (user.id) {                    
+                        loadUser(user);
+                        onRouteChange('home');
+                    }
+                })
+                .catch(console.error);
+        }
+
     }
 
     render() {

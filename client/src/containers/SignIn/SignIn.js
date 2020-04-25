@@ -25,11 +25,8 @@ class SignIn extends Component {
         } = this.state;
 
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-            console.log('inside development');
-
-            
             fetch('../../../../static/db.js')
-                .then(response => console.log(response))
+                .then(response => response.json())
                 .then(data => console.log(data))
         } else {
             fetch('/signin', {

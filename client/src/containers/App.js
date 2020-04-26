@@ -30,7 +30,7 @@ const initState = {
 class App extends Component {
     state = initState;
 
-    loadUser = user => {
+    loadUser = user => {  
         const name = user && user.name;
         const album = user && user.album;
         

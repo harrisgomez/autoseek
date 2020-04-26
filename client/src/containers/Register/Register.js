@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { handleFetchErrorsUtil } from '../../utils';
-import { TestDb } from '../../res';
+import { User } from '../../res';
 import './Register.css';
 
 class Register extends Component {
@@ -11,15 +11,15 @@ class Register extends Component {
     };
 
     onNameChange = e => {
-        this.setState({ name: e.target.value })
+        this.setState({ name: e.target.value });
     }
 
     onEmailChange = e => {
-        this.setState({ email: e.target.value })
+        this.setState({ email: e.target.value });
     }
 
     onPasswordChange = e => {
-        this.setState({ password: e.target.value })
+        this.setState({ password: e.target.value });
     }
 
     handleRegisterSubmit = () => {
@@ -28,7 +28,7 @@ class Register extends Component {
 
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
             const { name, email, password } = this.state;
-            const newUser = new TestDb(name, email, password).register();
+            const newUser = new User(name, email, password).register();
             
             loadUser(newUser);
             onRouteChange('home');

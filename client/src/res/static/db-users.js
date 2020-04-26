@@ -7,6 +7,7 @@ class User {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.album = [];
     }
 
     register() {
@@ -22,4 +23,4 @@ class User {
     }
 }
 
-export default User;
+export { User, users_db };

@@ -56,10 +56,7 @@ After everything is up and running, go to your __localhost/3000__.
 In development, the app runs all of its static data against a test database located in *"/static/db"*.
 
 
-You'll see a test user on Sign Ip as placeholders.
-
-
-From here, the user can Sign In immediately or register a new account.
+You'll have to register a fake account to sign in.
 
 
 Successfully signing in should redirect you to the homepage where you can paste the url to any image.

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { User, users_db } from '../../res';
+import { users_db } from '../../res';
 import './SignIn.css';
 
 import { handleFetchErrorsUtil } from '../../utils';
@@ -27,7 +27,7 @@ class SignIn extends Component {
 
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
             users_db.forEach(user => {
-                if (user.email === email && user,password === password) {
+                if (user.email === email && user, password === password) {
                     loadUser(user);
                     onRouteChange('home');
                 }
@@ -47,14 +47,12 @@ class SignIn extends Component {
                 })
                 .catch(console.error);
         }
-
-
     }
 
     render() {
         const { onRouteChange } = this.props;
         const { signInEmail, signInPassword } = this.state;
-        
+
         return (
             <article className="signin br3 ba b--black-10 w-100 w-50-m w-50-l mw6 shadow-5 center relative">
                 <main className="pa4 black-80">

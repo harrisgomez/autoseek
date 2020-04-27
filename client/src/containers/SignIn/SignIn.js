@@ -27,7 +27,7 @@ class SignIn extends Component {
 
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
             users_db.forEach(user => {
-                if (user.email === email && user, password === password) {
+                if (user.email === email && user.password === password) {
                     loadUser(user);
                     onRouteChange('home');
                 }

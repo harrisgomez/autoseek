@@ -41,7 +41,7 @@ app.post('/register', register.handleRegisterRoute(db, bcrypt));
 app.put('/album', album.handleAlbumRoute(db));
 app.get('/profile/:id', profile.handleProfileRoute(db));
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 

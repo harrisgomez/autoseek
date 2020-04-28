@@ -35,7 +35,7 @@ const db = knex({
 // db.select().from('users').then(console.log).catch(console.error);
 
 // * ROUTES
-app.get('/', (_req, res) => res.status(200).json(db));
+app.get('/', (_req, res) => res.send('Working'));
 app.post('/signin', signIn.handleSignInRoute(db, bcrypt));
 app.post('/register', register.handleRegisterRoute(db, bcrypt));
 app.put('/album', album.handleAlbumRoute(db));

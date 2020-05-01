@@ -24,15 +24,16 @@ class SignIn extends Component {
             signInEmail: email,
             signInPassword: password
         } = this.state;
-
-        if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-            users_db.forEach(user => {
-                if (user.email === email && user.password === password) {
-                    loadUser(user);
-                    onRouteChange('home');
-                }
-            });
-        } else {
+        // console.log(process.env.NODE_ENV);
+        
+        // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+        //     users_db.forEach(user => {
+        //         if (user.email === email && user.password === password) {
+        //             loadUser(user);
+        //             onRouteChange('home');
+        //         }
+        //     });
+        // } else {
             fetch('/signin', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
@@ -46,7 +47,7 @@ class SignIn extends Component {
                     }
                 })
                 .catch(console.error);
-        }
+        // }
     }
 
     render() {

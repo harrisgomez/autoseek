@@ -19,8 +19,8 @@ module.exports.handleSignInRoute = (db, bcrypt) => (req, res) => {
                 .then(user => {                                        
                     return res.json(user[0])
                 })
-                .catch(err => res.status(400).json(err.toString()))
+                .catch(err => res.status(400).json(err.toString()));
     
         })
         .catch(err => res.status(400).json(err.toString()));
-}
+};

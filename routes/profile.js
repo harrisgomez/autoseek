@@ -8,4 +8,4 @@ module.exports.handleProfileRoute = db => (req, res) => {
     } else {
         res.status(404).json('No user was found.');
     }
-}
+};

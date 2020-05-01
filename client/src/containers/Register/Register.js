@@ -26,27 +26,33 @@ class Register extends Component {
         const { loadUser, onRouteChange } = this.props;
         const { name, email, password } = this.state;
 
-        if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-            const { name, email, password } = this.state;
-            const newUser = new User(name, email, password).register();
+        // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+        //     const { name, email, password } = this.state;
+        //     const newUser = new User(name, email, password).register();
             
-            loadUser(newUser);
-            onRouteChange('home');
-        } else {            
+        //     loadUser(newUser);
+        //     onRouteChange('home');
+        // } else {
+            console.log(11);
+            
             fetch('/register', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, password })
             })
                 .then(handleFetchErrorsUtil)
-                .then(user => {                
-                    if (user.id) {                    
+                .then(user => {
+                    console.log(user);
+                    
+                    if (user.id) {
+                        console.log(user.id);
+                                 
                         loadUser(user);
                         onRouteChange('home');
                     }
                 })
                 .catch(console.error);
-        }
+        // }
 
     }
 

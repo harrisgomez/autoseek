@@ -40,5 +40,5 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "http://localhost:8080"
+    "proxy": "https://young-falls-34938.herokuapp.com/"
 }

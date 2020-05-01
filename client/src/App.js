@@ -22,8 +22,7 @@ const initState = {
     route: 'signIn',
     isSignedIn: false,
     user: {
-        name: '',
-        album: []
+        name: ''
     }
 };
 
@@ -32,9 +31,9 @@ class App extends Component {
 
     loadUser = user => {  
         const name = user && user.name;
-        const album = user && user.album;
+        // const album = user && user.album;
         
-        this.setState({ user: { name, album } });
+        this.setState({ user: { name } });
     }
 
     handleUrlChange = e => {

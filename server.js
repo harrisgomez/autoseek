@@ -17,8 +17,22 @@ app.use(cors());
 // * DB CONFIG
 const db = knex({
     client: 'pg',
-    connectionString: process.env.DATABASE_URL,
-    ssl: true
+    connection: {
+        connectionString: process.env.DATABASE_URL,
+        ssl: true
+    },
+    pool: {
+        min: 0,
+        max: 7,
+        afterCreate: (conn, done) => {
+            conn.query('SET timezone="UTC";', err => {
+                if (err) {
+                    console.log(err);
+                }
+                done(err, conn);
+            });
+        }
+    }
 });
 
 // * ROUTES

@@ -23,10 +23,16 @@ const db = knex({
     }
 });
 
+const args = {
+	headers: { "Content-Type": "application/json",  'Authorization': '' },
+	data:{},
+	rejectUnauthorized: false
+};
+
 // * ROUTES
 app.get('/', (_req, res) => res.send('Working'));
 app.post('/signin', signIn.handleSignInRoute(db, bcrypt));
-app.post('/register', register.handleRegisterRoute(db, bcrypt));
+app.post('/register', args, register.handleRegisterRoute(db, bcrypt));
 // app.put('/album', album.handleAlbumRoute(db));
 app.get('/profile/:id', profile.handleProfileRoute(db));
 

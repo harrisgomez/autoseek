@@ -16,6 +16,7 @@ app.use(cors());
 
 // * DB CONFIG
 const db = knex({
+    client: 'pg',
     connectionString: process.env.DATABASE_URL,
     ssl: true
 });

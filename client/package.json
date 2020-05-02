@@ -3,10 +3,6 @@
     "homepage": "https://harrisgomez.github.io/face-facts",
     "version": "0.1.0",
     "private": true,
-    "engines": {
-        "node": "12.16.x",
-        "npm": "6.x"
-    },
     "dependencies": {
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",

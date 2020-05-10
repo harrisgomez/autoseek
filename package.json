@@ -16,7 +16,7 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "install-client": "cd client && npm install",
     "build": "cd client && npm run build",
-    "local-hero": "NODE_ENV=production heroku local"
+    "local-hero": "set NODE_ENV=production&& heroku local"
   },
   "repository": {
     "type": "git",

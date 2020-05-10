@@ -26,6 +26,9 @@ class Register extends Component {
         const { loadUser, onRouteChange } = this.props;
         const { name, email, password } = this.state;
 
+        console.log(process.env.NODE_ENV);
+        
+
         // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
         //     const { name, email, password } = this.state;
         //     const newUser = new User(name, email, password).register();
@@ -35,7 +38,7 @@ class Register extends Component {
         // } else {
             console.log(11);
             
-            fetch('/register', {
+            fetch('/api/register', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, password })

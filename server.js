@@ -25,12 +25,6 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-// * ROUTES
-// app.get('/', (_req, res) => res.send(app.use(express.static(__dirname + '/'))));
-// app.post('/signin', signIn.handleSignInRoute(db, bcrypt));
-// app.post('/register', register.handleRegisterRoute(db, bcrypt));
-// app.get('/profile/:id', profile.handleProfileRoute(db));
-
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

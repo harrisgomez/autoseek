@@ -1,3 +1,5 @@
+// Static database for client-only git deploy
+
 const users_db = [
 
 ];

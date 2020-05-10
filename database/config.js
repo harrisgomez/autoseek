@@ -4,20 +4,11 @@ const knex = require('knex');
 // ! Note this is not secure for production. OK for local dev
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
-let config;
-
-if (process.env.DATABASE_URL) {
-    config = {
-        connectionString: process.env.DATABASE_URL,
-        ssl: true
-    };
-} else {
-    config = 'postgres://postgres:test@localhost:5432/facefacts_db';
-}
-
 const db = knex({
     client: 'pg',
-    connection: config
+    connection: process.env.DATABASE_URL
+        ? { connectionString: process.env.DATABASE_URL, ssl: true } // Running on Heroku
+        : process.env.LOCAL_PGDB_URL    // Running on local
 });
 
 module.exports = db;

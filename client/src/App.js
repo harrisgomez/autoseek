@@ -31,7 +31,6 @@ class App extends Component {
 
     loadUser = user => {  
         const name = user && user.name;
-        // const album = user && user.album;
         
         this.setState({ user: { name } });
     }

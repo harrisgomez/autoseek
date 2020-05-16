@@ -10,11 +10,6 @@ class Register extends Component {
         password: ''
     };
 
-    componentDidMount() {
-        console.log('REG', process);
-        
-    }
-
     onNameChange = e => {
         this.setState({ name: e.target.value });
     }
@@ -30,39 +25,42 @@ class Register extends Component {
     handleRegisterSubmit = () => {
         const { loadUser, onRouteChange } = this.props;
         const { name, email, password } = this.state;
+        const newUser = { name, email, password };
 
-        console.log('process', process);
-        console.log('document', document);
+        // Only for github deployment of Frontend
+        if (!!window.location.hostname.match('github')) {
+            localStorage.setItem('localUser', JSON.stringify(newUser));
+            loadUser(newUser);
+            onRouteChange('home');
+        }
         
-        console.log('REG', process);
-        
+        fetch('/api/register', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newUser)
+        })
+            .then(handleFetchErrorsUtil)
+            .then(user => {
+                console.log(user);
+                
+                if (user.id) {
+                    console.log(user.id);
+
+                    loadUser(user);
+                    onRouteChange('home');
+                }
+            })
+            .catch(console.error);
 
         // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
         //     const { name, email, password } = this.state;
-        //     const newUser = new User(name, email, password).register();
+
             
         //     loadUser(newUser);
         //     onRouteChange('home');
         // } else {
             
-            // fetch('/api/register', {
-            //     method: 'post',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ name, email, password })
-            // })
-            //     .then(handleFetchErrorsUtil)
-            //     .then(user => {
-            //         console.log(user);
-                    
-            //         if (user.id) {
-            //             console.log(user.id);
-                                 
-            //             loadUser(user);
-            //             onRouteChange('home');
-            //         }
-            //     })
-            //     .catch(console.error);
-            
+
         // }
 
     }

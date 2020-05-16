@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { handleFetchErrorsUtil } from '../../utils';
-import { User } from '../../res';
+import { githubUserDb } from '../../res';
 import './Register.css';
 
 class Register extends Component {
@@ -9,6 +9,11 @@ class Register extends Component {
         email: '',
         password: ''
     };
+
+    componentDidMount() {
+        console.log('REG', process);
+        
+    }
 
     onNameChange = e => {
         this.setState({ name: e.target.value });
@@ -26,7 +31,10 @@ class Register extends Component {
         const { loadUser, onRouteChange } = this.props;
         const { name, email, password } = this.state;
 
-        console.log(process.env.NODE_ENV);
+        console.log('process', process);
+        console.log('document', document);
+        
+        console.log('REG', process);
         
 
         // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
@@ -36,25 +44,25 @@ class Register extends Component {
         //     loadUser(newUser);
         //     onRouteChange('home');
         // } else {
-            console.log(11);
             
-            fetch('/api/register', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password })
-            })
-                .then(handleFetchErrorsUtil)
-                .then(user => {
-                    console.log(user);
+            // fetch('/api/register', {
+            //     method: 'post',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({ name, email, password })
+            // })
+            //     .then(handleFetchErrorsUtil)
+            //     .then(user => {
+            //         console.log(user);
                     
-                    if (user.id) {
-                        console.log(user.id);
+            //         if (user.id) {
+            //             console.log(user.id);
                                  
-                        loadUser(user);
-                        onRouteChange('home');
-                    }
-                })
-                .catch(console.error);
+            //             loadUser(user);
+            //             onRouteChange('home');
+            //         }
+            //     })
+            //     .catch(console.error);
+            
         // }
 
     }

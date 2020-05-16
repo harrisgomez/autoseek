@@ -34,7 +34,7 @@ class SignIn extends Component {
         //         }
         //     });
         // } else {
-            fetch('/signin', {
+            fetch('/api/signin', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })

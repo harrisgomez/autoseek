@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b0a89ca1eab296f79975c24d267ebf94",
+    "revision": "124a3d1c9879b96e4e3a88da75ee8705",
     "url": "/face-facts/index.html"
   },
   {
-    "revision": "9939d05bbd599cd4c0c6",
+    "revision": "1299dde6e8b1fb52cc36",
     "url": "/face-facts/static/css/2.3b6f1bda.chunk.css"
   },
   {
-    "revision": "9cc31bf37eead50e32d0",
+    "revision": "c812901ba1806b2c0c05",
     "url": "/face-facts/static/css/main.059853e3.chunk.css"
   },
   {
-    "revision": "9939d05bbd599cd4c0c6",
-    "url": "/face-facts/static/js/2.3000cd78.chunk.js"
+    "revision": "1299dde6e8b1fb52cc36",
+    "url": "/face-facts/static/js/2.31641aaa.chunk.js"
   },
   {
     "revision": "e88a3e95b5364d46e95b35ae8c0dc27d",
-    "url": "/face-facts/static/js/2.3000cd78.chunk.js.LICENSE.txt"
+    "url": "/face-facts/static/js/2.31641aaa.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "9cc31bf37eead50e32d0",
-    "url": "/face-facts/static/js/main.c6761714.chunk.js"
+    "revision": "c812901ba1806b2c0c05",
+    "url": "/face-facts/static/js/main.b9d1120e.chunk.js"
   },
   {
     "revision": "a7d64a4e3c731044acfa",

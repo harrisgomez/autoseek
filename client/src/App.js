@@ -3,12 +3,12 @@ import Navigation from './components/nav/Navigation';
 import Header from './components/header/Header';
 import SignIn from './containers/signIn/SignIn';
 import Register from './containers/register/Register';
-import ImageLinkForm from './components/imageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/faceRecognition/FaceRecognition';
+import ImageLinkForm from './components/imageLinkForm/ImageLinkForm';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import { particlesConfig } from './lib';
-import './App.css';
+import './app.css';
 import 'tachyons';
 
 export const clarifaiApp = new Clarifai.App({

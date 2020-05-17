@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Navigation from './components/nav/Navigation';
-import Header from './components/header/Header.js';
+import Header from './components/header/Header';
 import SignIn from './containers/signIn/SignIn';
 import Register from './containers/register/Register';
 import ImageLinkForm from './components/imageLinkForm/ImageLinkForm';
-import FaceRecognition from "./components/faceRecognition/FaceRecognition";
+import FaceRecognition from "./components/faceRecognition/FaceRecognition';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import { particlesConfig } from './lib';

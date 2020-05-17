@@ -51,18 +51,6 @@ class Register extends Component {
                 }
             })
             .catch(console.error);
-
-        // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-        //     const { name, email, password } = this.state;
-
-            
-        //     loadUser(newUser);
-        //     onRouteChange('home');
-        // } else {
-            
-
-        // }
-
     }
 
     render() {

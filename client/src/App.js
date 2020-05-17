@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './app.css';
 import Navigation from './components/nav/Navigation';
 import Header from './components/header/Header';
 import SignIn from './containers/signIn/SignIn';
@@ -8,7 +9,6 @@ import ImageLinkForm from './components/imageLinkForm/ImageLinkForm';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import { particlesConfig } from './lib';
-import './app.css';
 import 'tachyons';
 
 export const clarifaiApp = new Clarifai.App({

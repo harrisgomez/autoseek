@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './app.css';
 import Navigation from './components/nav/Navigation';
 import Header from './components/header/Header';
 import SignIn from './containers/signIn/SignIn';

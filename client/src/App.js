@@ -8,7 +8,7 @@ import FaceRecognition from "./components/faceRecognition/FaceRecognition";
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import { particlesConfig } from './lib';
-import './app.css';
+import './App.css';
 import 'tachyons';
 
 export const clarifaiApp = new Clarifai.App({

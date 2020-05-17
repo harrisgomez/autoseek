@@ -1,6 +1,6 @@
 import React from 'react';
-import Logo from '../logo/logo';
-import Greeting from '../greeting/greeting';
+import Logo from '../logo/Logo';
+import Greeting from '../greeting/Greeting';
 
 const Header = ({ isSignedIn, usersName }) => {
     return (

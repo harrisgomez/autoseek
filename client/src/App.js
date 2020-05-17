@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Navigation from './components/nav/navigation';
-import Header from './components/header/header.js';
-import SignIn from './containers/signIn/signIn';
-import Register from './containers/register/register';
-import ImageLinkForm from './components/imageLinkForm/imageLinkForm';
-import FaceRecognition from "./components/faceRecognition/faceRecognition";
+import Navigation from './components/nav/Navigation';
+import Header from './components/header/Header.js';
+import SignIn from './containers/signIn/SignIn';
+import Register from './containers/register/Register';
+import ImageLinkForm from './components/imageLinkForm/ImageLinkForm';
+import FaceRecognition from "./components/faceRecognition/FaceRecognition";
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import { particlesConfig } from './lib';
-import './App.css';
+import './app.css';
 import 'tachyons';
 
 export const clarifaiApp = new Clarifai.App({

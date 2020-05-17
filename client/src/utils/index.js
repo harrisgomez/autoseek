@@ -1,1 +1,1 @@
-export { default as handleFetchErrorsUtil } from './FetchUtil';
+export { default as handleFetchErrorsUtil } from './fetchUtil';

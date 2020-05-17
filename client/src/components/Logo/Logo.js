@@ -1,7 +1,7 @@
 import React from 'react';
 import Tilt from 'react-tilt';
-import { tiltConfig } from './../../lib';
-import { brochure } from './../../res';
+import { tiltConfig } from '../../lib';
+import { brochure } from '../../res';
 import './logo.css';
 
 const Logo = () => {

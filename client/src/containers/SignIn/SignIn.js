@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { users_db } from '../../res';
-import './SignIn.css';
+import './signIn.css';
 
 import { handleFetchErrorsUtil } from '../../utils';
 

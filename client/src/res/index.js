@@ -1,7 +1,5 @@
-import brochure from './img/brochure_icon.png';
-import { githubUserDb } from './static/db-users';
+import brochure from './static/img/brochure_icon.png';
 
 export {
-    brochure,
-    githubUserDb
+    brochure
 };

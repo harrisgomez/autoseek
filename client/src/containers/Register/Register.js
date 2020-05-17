@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { handleFetchErrorsUtil } from '../../utils';
-import { githubUserDb } from '../../res';
-import './Register.css';
+import './register.css';
 
 class Register extends Component {
     state = {

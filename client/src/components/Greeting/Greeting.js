@@ -1,5 +1,5 @@
 import React from 'react';
-import './Greeting.css';
+import './greeting.css';
 
 const Greeting = props => {
     const { isSignedIn, usersName } = props;

@@ -12,14 +12,15 @@ router.get('/signin', (req, res) => {
         return res.status(400).json('Incorrect form submission.');
     }
 
-    db.select('email', 'hash').from('login')
+    db.select('email', 'hash')
+        .from('login')
         .where('email', '=', email)
         .then(data => { 
             const isValid = data[0] && bcrypt.compareSync(password, data[0].hash);
             
             if (!isValid) {
                 throw new Error('Invalid login credentials.');
-            }            
+            }
             
             return db.select('*').from('users')
                 .where('email', '=', req.body.email)

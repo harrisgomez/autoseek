@@ -1,4 +1,7 @@
 const knex = require('knex');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 // ! Resolves 'Error: self signed certificate' caused by 'SSL: true'. May have to do w/ free heroku acc(?)
 // ! Note this is not secure for production. OK for local dev

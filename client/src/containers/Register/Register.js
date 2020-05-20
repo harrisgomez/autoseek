@@ -26,13 +26,14 @@ class Register extends Component {
         const { name, email, password } = this.state;
         const newUser = { name, email, password };
 
-        // Only for github deployment of Frontend
+        // Utilize local storage db for demo app on github
         if (!!window.location.hostname.match('github')) {
             localStorage.setItem('localUser', JSON.stringify(newUser));
             loadUser(newUser);
             onRouteChange('home');
         }
         
+        // Approriate db connection configured in server.js 
         fetch('/api/register', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
@@ -40,11 +41,7 @@ class Register extends Component {
         })
             .then(handleFetchErrorsUtil)
             .then(user => {
-                console.log(user);
-                
                 if (user.id) {
-                    console.log(user.id);
-
                     loadUser(user);
                     onRouteChange('home');
                 }

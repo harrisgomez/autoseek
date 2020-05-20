@@ -25,12 +25,12 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
 
-    console.log("(Prod) Environment variables loaded.");
+    console.log("Production build");
 } else {
     // Load local environment variables in dev
     dotenv.config();
     
-    console.log("(Dev) Environment variables loaded.");
+    console.log("Development build");
 }
 
 const PORT = process.env.PORT || 5000;

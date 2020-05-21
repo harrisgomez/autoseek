@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../database/config');
 const bcrypt = require('bcryptjs');
 const register = require('./register');
-const signIn = require('./signin');
+const signIn = require('./sign-in');
 
 router.get('/', (req, res) => res.json('Homepage'));
 router.post('/signin', signIn.handleSignIn(db, bcrypt));

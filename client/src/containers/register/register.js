@@ -28,6 +28,8 @@ class Register extends Component {
 
         // Utilize local storage db for demo app on github
         if (!!window.location.hostname.match('github')) {
+            console.log('User registered on github');
+            
             localStorage.setItem('localUser', JSON.stringify(newUser));
             loadUser(newUser);
             onRouteChange('home');
@@ -41,6 +43,8 @@ class Register extends Component {
         })
             .then(handleFetchErrorsUtil)
             .then(user => {
+                console.log('User', user);
+                
                 if (user.id) {
                     loadUser(user);
                     onRouteChange('home');

@@ -12,7 +12,7 @@ import './app.css';
 import 'tachyons';
 
 export const clarifaiApp = new Clarifai.App({
-    apiKey: `${process.env.REACT_APP_CLARIFAI_KEY}`
+    apiKey: process.env.REACT_APP_CLARIFAI_KEY
 });
 
 const initState = {

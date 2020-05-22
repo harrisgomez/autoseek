@@ -26,14 +26,14 @@ const handleRegister = (db, bcrypt) => (req, res) => {
                 trx.insert(loginInfo)
                     .into('login')
                     .returning('id')
-                    .then(loginID => {
-                        console.log('loginInfo inserted into login table. Returning login id', loginID);
+                    .then(loginId => {
+                        console.log('loginInfo inserted into login table. Returning login id', loginId[0]);
                         
                         const newUser = {
                             name,
                             email,
                             joined: new Date(),
-                            login_id: loginID
+                            login_id: loginId[0]
                         };
 
                         console.log('Creating newUser', newUser);
@@ -52,7 +52,7 @@ const handleRegister = (db, bcrypt) => (req, res) => {
             })
                 .catch(err => res.status(400).json({
                     message: 'An error occurred during registration.',
-                    error: err.toString()
+                    err
                 }));
         });
     });

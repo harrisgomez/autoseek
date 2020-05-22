@@ -31,7 +31,7 @@ const handleRegister = (db, bcrypt) => (req, res) => {
                         
                         const newUser = {
                             name,
-                            email: loginEmail[0],
+                            email,
                             joined: new Date(),
                             login_id: loginID
                         };

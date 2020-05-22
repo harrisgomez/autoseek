@@ -7,22 +7,14 @@ const handleRegister = (db, bcrypt) => (req, res) => {
     }
 
     bcrypt.genSalt(iterations, (saltErr, salt) => {
-        console.log('Salt generated');
-        
         if (saltErr) return res.status(400).json('Salt generation error.', saltErr);
                 
         bcrypt.hash(password, salt, (hashErr, hash) => {
-            console.log('Hash generated');
-            
             if (hashErr) return res.status(400).json('Hash generation error.', hashErr);
                         
             db.transaction(trx => {
-                console.log('Starting db transaction');
-                
                 const loginInfo = { email, hash };
 
-                console.log('Creating loginInfo', loginInfo);
-                
                 trx.insert(loginInfo)
                     .into('login')
                     .returning('email')
@@ -33,16 +25,12 @@ const handleRegister = (db, bcrypt) => (req, res) => {
                             joined: new Date()
                         };
 
-                        console.log('Creating newUser', newUser);
-                        
                         return trx.insert(newUser)
                             .into('users')
                             .returning('*')
                             .then(registeredUser => {
-                                console.log('newUser inserted into users db. Returning registeredUser', registeredUser);
-                                
                                 return res.json(registeredUser[0])
-                            })
+                            });
                     })
                     .then(trx.commit)
                     .catch(trx.rollback);

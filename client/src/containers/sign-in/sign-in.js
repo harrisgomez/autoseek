@@ -26,18 +26,10 @@ class SignIn extends Component {
 
         if (!!window.location.hostname.match('github')) {
             const localUser = localStorage.getItem('localUser');
+            
             loadUser(localUser);
             onRouteChange('home');
         }
-
-        // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-        //     users_db.forEach(user => {
-        //         if (user.email === email && user.password === password) {
-        //             loadUser(user);
-        //             onRouteChange('home');
-        //         }
-        //     });
-        // } else {
             
         fetch('/api/signin', {
             method: 'post',
@@ -52,7 +44,6 @@ class SignIn extends Component {
                 }
             })
             .catch(console.error);
-        // }
     }
 
     render() {

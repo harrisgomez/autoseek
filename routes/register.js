@@ -25,15 +25,11 @@ const handleRegister = (db, bcrypt) => (req, res) => {
                 
                 trx.insert(loginInfo)
                     .into('login')
-                    .returning('id')
-                    .then(loginId => {
-                        console.log('loginInfo inserted into login table. Returning login id', loginId[0]);
-                        
+                    .then(() => {
                         const newUser = {
+                            login_email,
                             name,
-                            email,
                             joined: new Date(),
-                            login_id: loginId[0]
                         };
 
                         console.log('Creating newUser', newUser);

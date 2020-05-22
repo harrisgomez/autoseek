@@ -17,7 +17,7 @@ const handleSignIn = (db, bcrypt) => (req, res) => {
             return db.select('*').from('users')
                 .where('login_email', '=', req.body.email)
                 .then(user => {
-                    return res.status(200).json('Successfully signed in.');
+                    return res.json(user[0])
                 })
                 .catch(err => res.status(400).json(err.toString()));
 

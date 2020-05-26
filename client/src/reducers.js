@@ -13,7 +13,7 @@ const initState = {
     }
 };
 
-export const xpungeApp(state = initState, action) {
+export default function xpungeApp(state = initState, action) {
     switch (action.type) {
         case LOAD_USER:
             return {

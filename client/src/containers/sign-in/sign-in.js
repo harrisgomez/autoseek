@@ -25,7 +25,7 @@ class SignIn extends Component {
         } = this.state;
 
         if (!!window.location.hostname.match('github')) {
-            const localUser = localStorage.getItem('localUser');
+            const localUser = sessionStorage.getItem('localUser');
             
             loadUser(localUser);
             onRouteChange('home');

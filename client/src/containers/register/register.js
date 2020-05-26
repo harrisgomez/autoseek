@@ -22,14 +22,14 @@ class Register extends Component {
     }
 
     handleRegisterSubmit = () => {
-        const { loadUser, onRouteChange } = this.props;
+        const { onLoadUser, onRouteChange } = this.props;
         const { name, email, password } = this.state;
-        const newUser = { name, email, password };
+        const newUser = { name, email, password };        
 
         // Utilize local storage db for demo app on github
         if (!!window.location.hostname.match('github')) {
-            localStorage.setItem('localUser', JSON.stringify(newUser));
-            loadUser(newUser);
+            sessionStorage.setItem('localUser', JSON.stringify(newUser));
+            onLoadUser(newUser);
             onRouteChange('home');
         }
         
@@ -42,7 +42,7 @@ class Register extends Component {
             .then(handleFetchErrorsUtil)
             .then(user => {
                 if (user.id) {
-                    loadUser(user);
+                    onLoadUser(user);
                     onRouteChange('home');
                 }
             })

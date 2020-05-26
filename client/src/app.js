@@ -34,11 +34,11 @@ const initState = {
 class App extends Component {
     state = initState;
 
-    loadUser = user => {
-        const name = user && user.name;
+    // loadUser = user => {
+    //     const name = user && user.name;
         
-        this.setState({ user: { name } });
-    }
+    //     this.setState({ user: { name } });
+    // }
 
     handleUrlChange = e => {
         this.setState({ urlInput: e.target.value });
@@ -103,7 +103,7 @@ class App extends Component {
             user: { name: usersName }
         } = this.state;
         const {
-            loadUser
+            handleLoadUser
         } = this.props;
         
         // * Testing out the enumerable alternative of conditional rendering. Looks much nicer.
@@ -115,8 +115,8 @@ class App extends Component {
                 <Header usersName={usersName} />
                 {
                     {
-                        'signIn': <SignIn loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />,
-                        'register': <Register loadUser={this.loadUser} onRouteChange={this.handleRouteChange} />,
+                        'signIn': <SignIn onLoadUser={handleLoadUser} onRouteChange={this.handleRouteChange} />,
+                        'register': <Register onLoadUser={handleLoadUser} onRouteChange={this.handleRouteChange} />,
                         'home': (
                             <div>
                                 <ImageLinkForm
@@ -139,7 +139,8 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-    onLoadUser: user => load
+    handleLoadUser: user => dispatch(loadUser(user))
+    
 });
 
 export default connect(mapState, mapDispatch)(App);

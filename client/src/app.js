@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Navigation from './components/nav/navigation';
 import Header from './components/header/header';
 import SignIn from './containers/sign-in/sign-in';
@@ -10,6 +11,10 @@ import Clarifai from 'clarifai';
 import { particlesConfig } from './lib';
 import './app.css';
 import 'tachyons';
+
+import {
+    loadUser
+} from './actionCreators.js';
 
 export const clarifaiApp = new Clarifai.App({
     apiKey: process.env.REACT_APP_CLARIFAI_KEY
@@ -29,7 +34,7 @@ const initState = {
 class App extends Component {
     state = initState;
 
-    loadUser = user => {  
+    loadUser = user => {
         const name = user && user.name;
         
         this.setState({ user: { name } });
@@ -97,6 +102,9 @@ class App extends Component {
             boxes,
             user: { name: usersName }
         } = this.state;
+        const {
+            loadUser
+        } = this.props;
         
         // * Testing out the enumerable alternative of conditional rendering. Looks much nicer.
 
@@ -126,4 +134,12 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapState = state => ({
+    
+});
+
+const mapDispatch = dispatch => ({
+    onLoadUser: user => load
+});
+
+export default connect(mapState, mapDispatch)(App);

@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/harrisgomez/face-facts.git"
+    "url": "git+https://github.com/harrisgomez/xpunge.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/harrisgomez/face-facts/issues"
+    "url": "https://github.com/harrisgomez/xpunge/issues"
   },
-  "homepage": "https://github.com/harrisgomez/face-facts#readme",
+  "homepage": "https://github.com/harrisgomez/xpunge#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

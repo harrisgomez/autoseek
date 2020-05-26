@@ -1,6 +1,6 @@
 {
     "name": "face-facts",
-    "homepage": "https://harrisgomez.github.io/face-facts",
+    "homepage": "https://harrisgomez.github.io/Xpunge",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -12,8 +12,12 @@
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-particles-js": "^2.7.1",
+        "react-redux": "^7.2.0",
         "react-scripts": "3.4.1",
         "react-tilt": "^0.1.4",
+        "redux": "^4.0.5",
+        "redux-logger": "^3.0.6",
+        "redux-thunk": "^2.3.0",
         "tachyons": "^4.11.1"
     },
     "scripts": {

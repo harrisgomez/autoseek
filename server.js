@@ -18,7 +18,7 @@ app.use('/api', routes);
 // * Serve static assets if in prod
 if (process.env.NODE_ENV === 'production') {
     // Set the static dir
-    app.use('/face-facts/', express.static('client/build'));
+    app.use('/xpunge/', express.static('client/build'));
 
     // Any req other than to /api should load index.html
     app.get('*', (req, res) => {

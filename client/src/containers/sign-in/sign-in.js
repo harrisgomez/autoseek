@@ -4,6 +4,7 @@ import './sign-in.css';
 import { handleFetchErrorsUtil } from '../../utils';
 
 class SignIn extends Component {
+    // Component state only used for handling controlled form input
     state = {
         signInEmail: '',
         signInPassword: ''
@@ -18,7 +19,7 @@ class SignIn extends Component {
     }
 
     handleSignInSubmit = () => {
-        const { loadUser, onRouteChange } = this.props;
+        const { onLoadUser, onRouteChange } = this.props;
         const {
             signInEmail: email,
             signInPassword: password
@@ -27,7 +28,7 @@ class SignIn extends Component {
         if (!!window.location.hostname.match('github')) {
             const localUser = sessionStorage.getItem('localUser');
             
-            loadUser(localUser);
+            onLoadUser(localUser);
             onRouteChange('home');
         }
             
@@ -39,7 +40,7 @@ class SignIn extends Component {
             .then(handleFetchErrorsUtil)
             .then(user => {
                 if (user.id) {
-                    loadUser(user);
+                    onLoadUser(user);
                     onRouteChange('home');
                 }
             })

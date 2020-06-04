@@ -15,7 +15,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
      __OR__
 
-   * Insert it into the Clarifai instance directly in the */client/src/container/App.js* file on *Lines 14-16*
+   * Insert it into the Clarifai instance directly in */client/src/container/face-recognition.js*
 
      ```javascript
      export const clarifaiApp = new Clarifai.App({

@@ -34,9 +34,9 @@ class App extends Component {
         const { imgUrlInput } = this.state;
         const {
             user,
+            isSignedIn,
             route,
             boxesArr,
-            isSignedIn,
             handleLoadUser,
             handleRouteChange
         } = this.props;
@@ -47,7 +47,7 @@ class App extends Component {
             <div className="App">
                 <Particles className='particles' params={particlesConfig} />
                 <Navigation onRouteChange={handleRouteChange} isSignedIn={isSignedIn} />
-                <Header user={user} />
+                <Header user={user} isSignedIn={isSignedIn} />
                 {
                     {
                         'signIn': <SignIn onLoadUser={handleLoadUser} onRouteChange={handleRouteChange} />,
@@ -72,9 +72,9 @@ class App extends Component {
 const mapState = state => {
     return {
         user: state.user.userInfo,
+        isSignedIn: state.user.isSignedIn,
         route: state.route.path,
-        boxesArr: state.image.boxes,
-        isSignedIn: state.isSignedIn
+        boxesArr: state.image.boxes
     };
 };
 

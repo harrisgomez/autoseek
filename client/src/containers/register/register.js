@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { handleFetchErrorsUtil } from '../../utils';
+import { connect } from 'react-redux';
 import './register.css';
+
+// ACTIONS
+import { doUserRegistration } from '../../actions/action-creators';
 
 class Register extends Component {
     state = {
@@ -21,36 +24,9 @@ class Register extends Component {
         this.setState({ password: e.target.value });
     }
 
-    handleRegisterSubmit = () => {
-        const { onLoadUser, onRouteChange } = this.props;
-        const { name, email, password } = this.state;
-        const newUser = { name, email, password };        
-
-        // Utilize local storage db for demo app on github
-        if (!!window.location.hostname.match('github')) {
-            sessionStorage.setItem('localUser', JSON.stringify(newUser));
-            onLoadUser(newUser);
-            onRouteChange('home');
-        }
-        
-        // Approriate db connection configured in server.js 
-        fetch('/api/register', {
-            method: 'post',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newUser)
-        })
-            .then(handleFetchErrorsUtil)
-            .then(user => {
-                if (user.id) {
-                    onLoadUser(user);
-                    onRouteChange('home');
-                }
-            })
-            .catch(console.error);
-    }
-
     render() {
         const { name, email, password } = this.state;
+        const { handleRegisterSubmit } = this.props;
 
         return (
             <article className="register signin br3 ba b--black-10 mw6 w-100 w-50-m w-25-l mw6 shadow-5 center">
@@ -97,7 +73,7 @@ class Register extends Component {
                                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                                 type="button"
                                 value="Register"
-                                onClick={this.handleRegisterSubmit}
+                                onClick={() => handleRegisterSubmit(this.state)}
                             />
                         </div>
                     </div>
@@ -107,4 +83,8 @@ class Register extends Component {
     }
 };
 
-export default Register;
+const mapDispatch = dispatch => ({
+    handleRegisterSubmit: userFormObj => dispatch(doUserRegistration(userFormObj))
+});
+
+export default connect(null, mapDispatch)(Register);

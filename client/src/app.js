@@ -11,6 +11,7 @@ import { particlesConfig } from './lib';
 import './app.css';
 import 'tachyons';
 
+// ACTIONS
 import {
     detectFaces,
     loadUser,
@@ -40,7 +41,7 @@ class App extends Component {
             handleLoadUser,
             handleRouteChange
         } = this.props;
-        
+
         // * Testing out the enumerable alternative of conditional rendering. Looks much nicer.
 
         return (
@@ -69,14 +70,12 @@ class App extends Component {
     }
 }
 
-const mapState = state => {
-    return {
-        user: state.user.userInfo,
-        isSignedIn: state.user.isSignedIn,
-        route: state.route.path,
-        boxesArr: state.image.boxes
-    };
-};
+const mapState = state => ({
+    user: state.user.userInfo,
+    isSignedIn: state.user.isSignedIn,
+    route: state.route.path,
+    boxesArr: state.image.boxes
+});
 
 const mapDispatch = dispatch => ({
     handleLoadUser: user => dispatch(loadUser(user)),

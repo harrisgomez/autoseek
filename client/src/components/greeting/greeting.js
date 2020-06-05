@@ -3,7 +3,9 @@ import './greeting.css';
 
 const Greeting = ({ isSignedIn, name }) => {
     if (isSignedIn) {
-        return <h1>{`Hi ${name}`}</h1>;
+        const capitalizedName = name[0].toUpperCase() + name.slice(1);
+
+        return <h1>{`Hi ${capitalizedName}`}</h1>;
     }
     
     return <div className='hide'><h1>{"Welcome to Xpunge"}</h1></div>;

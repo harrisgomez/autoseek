@@ -6,7 +6,7 @@ const Header = ({ isSignedIn, user }) => {
     return (
         <div className='f4 white relative z-0'>
             <Logo />
-            <Greeting isSignedIn={isSignedIn} name={user.name} />
+            <Greeting isSignedIn={isSignedIn} name={user && user.name} />
         </div>
     );
 };

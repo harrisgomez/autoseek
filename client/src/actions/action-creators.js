@@ -14,7 +14,7 @@ const clarifaiApp = new Clarifai.App({
 
 const getClarifaiFaceDetectModel = url => {
     return clarifaiApp.models.predict(Clarifai.FACE_DETECT_MODEL, url);
-}
+};
 
 const getFaceLocationArr = data => {
     const img = document.getElementById('inputImg');

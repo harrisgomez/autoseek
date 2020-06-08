@@ -55,7 +55,9 @@ export const changeRoute = routeStr => ({
 });
 
 export const loadUser = userObj => dispatch => {
-    const userInfo = { name: userObj.name };
+    let userInfo = !!window.location.hostname.match('github')
+        ? JSON.parse(sessionStorage.getItem('localUser'))
+        : { name: userObj.name };
 
     // Return dispatch in async actions
     return dispatch({
@@ -67,7 +69,7 @@ export const loadUser = userObj => dispatch => {
 export const doUserRegistration = newUserObj => dispatch => {
     // Utilize local storage db for demo app on github
     if (!!window.location.hostname.match('github')) {
-        sessionStorage.setItem('localUser', JSON.stringify(newUserObj));
+        sessionStorage.setItem('localUser', JSON.stringify(newUserObj)); // sessionStorage able to store strings only
         dispatch(loadUser(newUserObj));
         dispatch(changeRoute('home'));
     }
@@ -96,29 +98,4 @@ export const detectFaces = url => dispatch => {
             });
         })
         .catch(console.error);
-
-    // function calculateFaceLocation(data) {
-    //     const img = document.getElementById('inputImg');
-    //     const width = Number(img.width);
-    //     const height = Number(img.height);
-    //     const boxRegionsArr = data.outputs[0].data.regions;
-    //     const boundingBoxArr = boxRegionsArr.map(region => {
-    //         const {
-    //             left_col,
-    //             top_row,
-    //             right_col,
-    //             bottom_row
-    //         } = region.region_info.bounding_box;
-
-    //         return {
-    //             id: region.id,
-    //             leftCol: left_col * width,
-    //             topRow: top_row * height,
-    //             rightCol: width - (right_col * width),
-    //             botRow: height - (bottom_row * height)
-    //         };
-    //     });
-
-    //     return boundingBoxArr;
-    // };
 };

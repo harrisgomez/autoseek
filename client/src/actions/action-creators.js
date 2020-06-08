@@ -84,6 +84,8 @@ export const onUserRegistration = newUserObj => dispatch => {
     const isDemoApp = !!window.location.hostname.match('github');
 
     if (isDemoApp) {
+        console.log('in here');
+        
         sessionStorage.setItem('localUser', JSON.stringify(newUserObj)); // sessionStorage able to store strings only
         dispatch(loadUser(newUserObj));
         dispatch(changeRoute('home'));

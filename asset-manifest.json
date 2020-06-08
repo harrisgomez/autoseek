@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Xpunge/static/css/main.ecb2a422.chunk.css",
-    "main.js": "/Xpunge/static/js/main.273efafc.chunk.js",
-    "main.js.map": "/Xpunge/static/js/main.273efafc.chunk.js.map",
+    "main.js": "/Xpunge/static/js/main.6f83536b.chunk.js",
+    "main.js.map": "/Xpunge/static/js/main.6f83536b.chunk.js.map",
     "runtime-main.js": "/Xpunge/static/js/runtime-main.3ece9ec1.js",
     "runtime-main.js.map": "/Xpunge/static/js/runtime-main.3ece9ec1.js.map",
     "static/css/2.3b6f1bda.chunk.css": "/Xpunge/static/css/2.3b6f1bda.chunk.css",
     "static/js/2.b2c5e579.chunk.js": "/Xpunge/static/js/2.b2c5e579.chunk.js",
     "static/js/2.b2c5e579.chunk.js.map": "/Xpunge/static/js/2.b2c5e579.chunk.js.map",
     "index.html": "/Xpunge/index.html",
-    "precache-manifest.a01a1984bffec1267df999d5df829d94.js": "/Xpunge/precache-manifest.a01a1984bffec1267df999d5df829d94.js",
+    "precache-manifest.ddf004c7b71273c1f059891306ab3132.js": "/Xpunge/precache-manifest.ddf004c7b71273c1f059891306ab3132.js",
     "service-worker.js": "/Xpunge/service-worker.js",
     "static/css/2.3b6f1bda.chunk.css.map": "/Xpunge/static/css/2.3b6f1bda.chunk.css.map",
     "static/css/main.ecb2a422.chunk.css.map": "/Xpunge/static/css/main.ecb2a422.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.3b6f1bda.chunk.css",
     "static/js/2.b2c5e579.chunk.js",
     "static/css/main.ecb2a422.chunk.css",
-    "static/js/main.273efafc.chunk.js"
+    "static/js/main.6f83536b.chunk.js"
   ]
 }

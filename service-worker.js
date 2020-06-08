@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Xpunge/precache-manifest.a01a1984bffec1267df999d5df829d94.js"
+  "/Xpunge/precache-manifest.ddf004c7b71273c1f059891306ab3132.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -13,8 +13,8 @@ import 'tachyons';
 
 // ACTIONS
 import {
-    detectFaces,
-    loadUser,
+    onLoadUser,
+    onDetectFaces,
     changeRoute
 } from './actions/action-creators';
 
@@ -78,9 +78,9 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-    handleLoadUser: user => dispatch(loadUser(user)),
+    handleLoadUser: user => dispatch(onLoadUser(user)),
     handleRouteChange: route => dispatch(changeRoute(route)),
-    handleImgUrlSubmit: imgUrl => dispatch(detectFaces(imgUrl)) // Requires thunk to dispatch async fn()
+    handleImgUrlSubmit: imgUrl => dispatch(onDetectFaces(imgUrl)) // Requires thunk to dispatch async fn()
 });
 
 export default connect(mapState, mapDispatch)(App);

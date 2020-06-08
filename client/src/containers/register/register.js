@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './register.css';
 
 // ACTIONS
-import { doUserRegistration } from '../../actions/action-creators';
+import { onUserRegistration } from '../../actions/action-creators';
 
 class Register extends Component {
     state = {
@@ -84,7 +84,7 @@ class Register extends Component {
 };
 
 const mapDispatch = dispatch => ({
-    handleRegisterSubmit: userFormObj => dispatch(doUserRegistration(userFormObj))
+    handleRegisterSubmit: userFormObj => dispatch(onUserRegistration(userFormObj))
 });
 
 export default connect(null, mapDispatch)(Register);

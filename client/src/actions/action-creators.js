@@ -12,6 +12,8 @@ const clarifaiApp = new Clarifai.App({
     apiKey: process.env.REACT_APP_CLARIFAI_KEY
 });
 
+// * UTILITY FUNCTIONS
+
 const getClarifaiFaceDetectModel = url => {
     return clarifaiApp.models.predict(Clarifai.FACE_DETECT_MODEL, url);
 };
@@ -49,24 +51,35 @@ const registerUser = userObj => {
     });
 };
 
+// * ACTIONS
+
+export const loadUser = userInfo => ({
+    type: LOAD_USER,
+    payload: userInfo
+});
+
 export const changeRoute = routeStr => ({
     type: CHANGE_ROUTE,
     payload: routeStr
 });
 
-export const loadUser = userObj => dispatch => {
+export const detectFaces = facesArr => ({
+    type: DETECT_FACES,
+    payload: facesArr
+});
+
+// * ACTION CREATORS 
+
+export const onLoadUser = userObj => dispatch => {
     let userInfo = !!window.location.hostname.match('github')
         ? JSON.parse(sessionStorage.getItem('localUser'))
         : { name: userObj.name };
 
-    // Return dispatch in async actions
-    return dispatch({
-        type: LOAD_USER,
-        payload: userInfo
-    });
+    // Async actions return the dispatched action(s)
+    return dispatch(loadUser(userInfo));
 };
 
-export const doUserRegistration = newUserObj => dispatch => {
+export const onUserRegistration = newUserObj => dispatch => {
     // Demo app deployed to Github stores data to local storage instead db
     const isDemoApp = !!window.location.hostname.match('github');
 
@@ -76,28 +89,27 @@ export const doUserRegistration = newUserObj => dispatch => {
         dispatch(changeRoute('home'));
     }
 
-    // Approriate db connection configured in server.js
+    // Do not use catch, because errors occured during rendering
+    // should be handled by React Error Boundaries
+    // https://reactjs.org/docs/error-boundaries.html
     return registerUser(newUserObj)
         .then(handleFetchErrorsUtil)
         .then(user => {
             const userInfo = { name: user.name };
 
-            if (user.id) {
+            // if (user.id) {
                 dispatch(loadUser(userInfo));
                 dispatch(changeRoute('home'));
-            }
-        })
-        .catch(console.error);
+            // }
+        });
 };
 
 // thunk required to dispatch async action
-export const detectFaces = url => dispatch => {
+export const onDetectFaces = url => dispatch => {
     return getClarifaiFaceDetectModel(url)
         .then(response => {
-            dispatch({
-                type: DETECT_FACES,
-                payload: getFaceLocationArr(response)
-            });
-        })
-        .catch(console.error);
+            const faceLocationsArr = getFaceLocationArr(response);
+
+            dispatch(detectFaces(faceLocationsArr));
+        });
 };

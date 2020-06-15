@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cors = require('cors');
-const routes = require('./routes/api');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+const routes = require('./routes/api');
 
 // * MIDDLEWARE
 app.use(express.urlencoded({ extended: false }));

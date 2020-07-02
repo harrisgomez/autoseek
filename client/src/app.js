@@ -16,6 +16,7 @@ import {
     doLoadUser,
     doRouteChange,
     doDetectFaces,
+    resetFaces,
     doRegisterSubmit,
     doSigninSubmit
 } from './actions/action-creators';
@@ -26,11 +27,8 @@ class App extends Component {
     };
 
     handleUrlChange = e => {
+        this.props.dispatch(resetFaces()); // refer to note at bottom for availability of this.props.dispatch()
         this.setState({ imgUrlInput: e.target.value });
-    }
-
-    handleUrlSubmit = () => {
-        this.props.handleImgUrlSubmit(this.state.imgUrlInput);
     }
 
     render() {
@@ -40,6 +38,7 @@ class App extends Component {
             isSignedIn,
             route,
             boxesArr,
+            handleImgUrlSubmit,
             handleRouteChange,
             handleSigninSubmit,
             handleRegisterSubmit
@@ -61,7 +60,7 @@ class App extends Component {
                                 <ImageLinkForm
                                     imgUrlInput={imgUrlInput}
                                     onUrlChange={this.handleUrlChange}
-                                    onUrlSubmit={this.handleUrlSubmit}
+                                    onUrlSubmit={handleImgUrlSubmit}
                                 />
                                 <FaceRecognition imgUrl={imgUrlInput} boxesArr={boxesArr} />
                             </div>
@@ -81,6 +80,7 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
+    dispatch, // allows this.props.dispatch() call from within component
     handleLoadUser: user => dispatch(doLoadUser(user)),
     handleRouteChange: route => dispatch(doRouteChange(route)),
     handleImgUrlSubmit: imgUrl => dispatch(doDetectFaces(imgUrl)), // Requires thunk to dispatch async fn()
@@ -89,3 +89,4 @@ const mapDispatch = dispatch => ({
 });
 
 export default connect(mapState, mapDispatch)(App);
+// this.props.dispatch available by default if you don't supply your own mapDispatch, otherwise, you're responsible for returning your own prop named dispatch

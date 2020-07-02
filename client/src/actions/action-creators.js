@@ -7,6 +7,7 @@ import {
     RESET_USER,
     CHANGE_ROUTE,
     DETECT_FACES,
+    RESET_FACES,
     REGISTER_USER,
     SIGNIN_USER
 } from './types';
@@ -88,6 +89,10 @@ export const changeRoute = routeStr => ({
 export const detectFaces = facesArr => ({
     type: DETECT_FACES,
     payload: facesArr
+});
+
+export const resetFaces = () => ({
+    type: RESET_FACES
 });
 
 export const userSignin = signinFormObj => ({

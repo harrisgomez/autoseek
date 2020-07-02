@@ -16,39 +16,6 @@ class Signin extends Component {
         this.setState({ password: e.target.value });
     }
 
-    // handleSignInSubmit = () => {
-    //     const {
-    //         onLoadUser,
-    //         onRouteChange,
-    //         onSigninSubmit
-    //     } = this.props;
-    //     const {
-    //         signInEmail: email,
-    //         signInPassword: password
-    //     } = this.state;
-
-    //     if (!!window.location.hostname.match('github')) {
-    //         const localUser = sessionStorage.getItem('localUser');
-            
-    //         onLoadUser(localUser);
-    //         onRouteChange('home');
-    //     }
-
-    //     fetch('/api/signin', {
-    //         method: 'post',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ email, password })
-    //     })
-    //         .then(handleFetchErrorsUtil)
-    //         .then(user => {
-    //             if (user.id) {
-    //                 onLoadUser(user);
-    //                 onRouteChange('home');
-    //             }
-    //         })
-    //         .catch(console.error);
-    // }
-
     render() {
         const { signinEmail, signinPassword } = this.state;
         const { onRouteChange, onSigninSubmit } = this.props;

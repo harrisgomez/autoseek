@@ -139,6 +139,8 @@ export const doRegisterSubmit = registerFormObj => dispatch => {
     return registerUser(registerFormObj)
         .then(handleFetchErrorsUtil)
         .then(user => {
+            if (!user.name) throw new Error('User registration error, that account already exists.');
+            
             dispatch(loadUser({ name: user.name}));
             dispatch(changeRoute('home'));
         })

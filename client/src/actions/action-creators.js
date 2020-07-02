@@ -81,11 +81,9 @@ export const onLoadUser = userObj => dispatch => {
 
 export const onUserRegistration = newUserObj => dispatch => {
     // Demo app deployed to Github stores data to local storage instead db
-    const isDemoApp = !!window.location.hostname.match('github');
+    const isGithubDemo = !!window.location.hostname.match('github');
 
-    if (isDemoApp) {
-        console.log('in here');
-        
+    if (isGithubDemo) {
         sessionStorage.setItem('localUser', JSON.stringify(newUserObj)); // sessionStorage able to store strings only
         dispatch(loadUser(newUserObj));
         dispatch(changeRoute('home'));

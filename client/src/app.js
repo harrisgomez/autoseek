@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Navigation from './components/nav/navigation';
 import Header from './components/header/header';
-import SignIn from './containers/sign-in/sign-in';
+import Signin from './containers/signin/signin';
 import Register from './containers/register/register';
 import FaceRecognition from './components/face-recognition/face-recognition';
 import ImageLinkForm from './components/image-link-form/image-link-form';
@@ -13,9 +13,11 @@ import 'tachyons';
 
 // ACTIONS
 import {
-    onLoadUser,
-    onDetectFaces,
-    changeRoute
+    doLoadUser,
+    doRouteChange,
+    doDetectFaces,
+    doRegisterSubmit,
+    doSigninSubmit
 } from './actions/action-creators';
 
 class App extends Component {
@@ -38,8 +40,9 @@ class App extends Component {
             isSignedIn,
             route,
             boxesArr,
-            handleLoadUser,
-            handleRouteChange
+            handleRouteChange,
+            handleSigninSubmit,
+            handleRegisterSubmit
         } = this.props;
 
         // * Testing out the enumerable alternative of conditional rendering. Looks much nicer.
@@ -51,8 +54,8 @@ class App extends Component {
                 <Header user={user} isSignedIn={isSignedIn} />
                 {
                     {
-                        'signIn': <SignIn onLoadUser={handleLoadUser} onRouteChange={handleRouteChange} />,
-                        'register': <Register onLoadUser={handleLoadUser} onRouteChange={handleRouteChange} />,
+                        'signin': <Signin onSigninSubmit={handleSigninSubmit} onRouteChange={handleRouteChange}/>,
+                        'register': <Register onRegisterSubmit={handleRegisterSubmit} onRouteChange={handleRouteChange} />,
                         'home': (
                             <div>
                                 <ImageLinkForm
@@ -78,9 +81,11 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-    handleLoadUser: user => dispatch(onLoadUser(user)),
-    handleRouteChange: route => dispatch(changeRoute(route)),
-    handleImgUrlSubmit: imgUrl => dispatch(onDetectFaces(imgUrl)) // Requires thunk to dispatch async fn()
+    handleLoadUser: user => dispatch(doLoadUser(user)),
+    handleRouteChange: route => dispatch(doRouteChange(route)),
+    handleImgUrlSubmit: imgUrl => dispatch(doDetectFaces(imgUrl)), // Requires thunk to dispatch async fn()
+    handleRegisterSubmit: registerFormObj => dispatch(doRegisterSubmit(registerFormObj)),
+    handleSigninSubmit: signinFormObj => dispatch(doSigninSubmit(signinFormObj))
 });
 
 export default connect(mapState, mapDispatch)(App);

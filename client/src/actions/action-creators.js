@@ -4,8 +4,11 @@ import { handleFetchErrorsUtil } from '../utils';
 import Clarifai from 'clarifai';
 import {
     LOAD_USER,
+    RESET_USER,
     CHANGE_ROUTE,
-    DETECT_FACES
+    DETECT_FACES,
+    REGISTER_USER,
+    SIGNIN_USER
 } from './types';
 
 const clarifaiApp = new Clarifai.App({
@@ -43,6 +46,13 @@ const getFaceLocationArr = data => {
     return boundingBoxArr;
 };
 
+const isFormValid = (formType, userInfo) => {
+    const { name, email, password } = userInfo;
+
+    if (formType === 'signin') return email && password;
+    if (formType === 'register') return name && email && password;
+};
+
 const registerUser = userObj => {
     return fetch('/api/register', {
         method: 'post',
@@ -51,11 +61,23 @@ const registerUser = userObj => {
     });
 };
 
+const signinUser = userObj => {
+    return fetch('/api/signin', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userObj)
+    });
+}
+
 // * ACTIONS
 
 export const loadUser = userInfo => ({
     type: LOAD_USER,
     payload: userInfo
+});
+
+export const resetUser = () => ({
+    type: RESET_USER
 });
 
 export const changeRoute = routeStr => ({
@@ -68,9 +90,19 @@ export const detectFaces = facesArr => ({
     payload: facesArr
 });
 
+export const userSignin = signinFormObj => ({
+    type: SIGNIN_USER,
+    payload: signinFormObj
+});
+
+export const userRegistration = registerFormObj => ({
+    type: REGISTER_USER,
+    payload: registerFormObj
+});
+
 // * ACTION CREATORS 
 
-export const onLoadUser = userObj => dispatch => {
+export const doLoadUser = userObj => dispatch => {
     let userInfo = !!window.location.hostname.match('github')
         ? JSON.parse(sessionStorage.getItem('localUser'))
         : { name: userObj.name };
@@ -79,37 +111,59 @@ export const onLoadUser = userObj => dispatch => {
     return dispatch(loadUser(userInfo));
 };
 
-export const onUserRegistration = newUserObj => dispatch => {
-    // Demo app deployed to Github stores data to local storage instead db
-    const isGithubDemo = !!window.location.hostname.match('github');
-
-    if (isGithubDemo) {
-        sessionStorage.setItem('localUser', JSON.stringify(newUserObj)); // sessionStorage able to store strings only
-        dispatch(loadUser(newUserObj));
-        dispatch(changeRoute('home'));
-    }
-
-    // Do not use catch, because errors occured during rendering
-    // should be handled by React Error Boundaries
-    // https://reactjs.org/docs/error-boundaries.html
-    return registerUser(newUserObj)
-        .then(handleFetchErrorsUtil)
-        .then(user => {
-            const userInfo = { name: user.name };
-
-            // if (user.id) {
-                dispatch(loadUser(userInfo));
-                dispatch(changeRoute('home'));
-            // }
-        });
-};
-
 // thunk required to dispatch async action
-export const onDetectFaces = url => dispatch => {
+export const doDetectFaces = url => dispatch => {
     return getClarifaiFaceDetectModel(url)
         .then(response => {
             const faceLocationsArr = getFaceLocationArr(response);
 
             dispatch(detectFaces(faceLocationsArr));
         });
+};
+
+export const doRegisterSubmit = registerFormObj => dispatch => {
+    // Demo app deployed to Github stores data to local storage instead db
+    const isGithubDemo = !!window.location.hostname.match('github');
+
+    if (isGithubDemo && isFormValid('register', registerFormObj)) {
+        sessionStorage.setItem('localUser', JSON.stringify(registerFormObj)); // sessionStorage able to store strings only
+        dispatch(loadUser(registerFormObj));
+        dispatch(changeRoute('home'));
+    }
+
+    // Do not use catch, because errors occured during rendering
+    // should be handled by React Error Boundaries
+    // https://reactjs.org/docs/error-boundaries.html
+    return registerUser(registerFormObj)
+        .then(handleFetchErrorsUtil)
+        .then(user => {
+            dispatch(loadUser({ name: user.name}));
+            dispatch(changeRoute('home'));
+        });
+};
+
+export const doSigninSubmit = signinFormObj => dispatch => {
+    const { email, password } = signinFormObj;
+    const isGithubDemo = !!window.location.hostname.match('github');
+
+    if (isGithubDemo && isFormValid('signin', signinFormObj)) {
+        const user = JSON.parse(sessionStorage.getItem('localUser'));
+
+        if (user.email === email && user.password === password) {
+            dispatch(loadUser(user));
+            dispatch(changeRoute('home'));
+        }
+    }
+
+    return signinUser(signinFormObj)
+        .then(handleFetchErrorsUtil)
+        .then(user => {
+            dispatch(loadUser({ name: user.name }));
+            dispatch(changeRoute('home'));
+        });
+};
+
+export const doRouteChange = route => dispatch => {
+    if (route !== 'home') dispatch(resetUser());
+    return dispatch(changeRoute(route));
 };

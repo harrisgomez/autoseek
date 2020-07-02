@@ -1,7 +1,7 @@
 import * as constants from '../actions/types';
 
 const initState = {
-    path: 'signIn'
+    path: 'signin'
 };
 
 export default (state = initState, action = {}) => {

@@ -1,55 +1,57 @@
 import React, { Component } from 'react';
-import './sign-in.css';
+import './signin.css';
 
-import { handleFetchErrorsUtil } from '../../utils';
-
-class SignIn extends Component {
+class Signin extends Component {
     // Component state only used for handling controlled form input
     state = {
-        signInEmail: '',
-        signInPassword: ''
+        email: '',
+        password: ''
     }
 
     onEmailChange = e => {
-        this.setState({ signInEmail: e.target.value });
+        this.setState({ email: e.target.value });
     }
 
     onPasswordChange = e => {
-        this.setState({ signInPassword: e.target.value });
+        this.setState({ password: e.target.value });
     }
 
-    handleSignInSubmit = () => {
-        const { onLoadUser, onRouteChange } = this.props;
-        const {
-            signInEmail: email,
-            signInPassword: password
-        } = this.state;
+    // handleSignInSubmit = () => {
+    //     const {
+    //         onLoadUser,
+    //         onRouteChange,
+    //         onSigninSubmit
+    //     } = this.props;
+    //     const {
+    //         signInEmail: email,
+    //         signInPassword: password
+    //     } = this.state;
 
-        if (!!window.location.hostname.match('github')) {
-            const localUser = sessionStorage.getItem('localUser');
+    //     if (!!window.location.hostname.match('github')) {
+    //         const localUser = sessionStorage.getItem('localUser');
             
-            onLoadUser(localUser);
-            onRouteChange('home');
-        }
-            
-        fetch('/api/signin', {
-            method: 'post',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        })
-            .then(handleFetchErrorsUtil)
-            .then(user => {
-                if (user.id) {
-                    onLoadUser(user);
-                    onRouteChange('home');
-                }
-            })
-            .catch(console.error);
-    }
+    //         onLoadUser(localUser);
+    //         onRouteChange('home');
+    //     }
+
+    //     fetch('/api/signin', {
+    //         method: 'post',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ email, password })
+    //     })
+    //         .then(handleFetchErrorsUtil)
+    //         .then(user => {
+    //             if (user.id) {
+    //                 onLoadUser(user);
+    //                 onRouteChange('home');
+    //             }
+    //         })
+    //         .catch(console.error);
+    // }
 
     render() {
-        const { onRouteChange } = this.props;
-        const { signInEmail, signInPassword } = this.state;
+        const { signinEmail, signinPassword } = this.state;
+        const { onRouteChange, onSigninSubmit } = this.props;
 
         return (
             <article className="signin br3 ba b--black-10 w-100 w-50-m w-50-l mw6 shadow-5 center relative">
@@ -64,7 +66,7 @@ class SignIn extends Component {
                                     className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                     type="email"
                                     name="email-address"
-                                    value={signInEmail}
+                                    value={signinEmail}
                                     onChange={this.onEmailChange}
                                 />
                             </div>
@@ -75,7 +77,7 @@ class SignIn extends Component {
                                     className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                     type="password"
                                     name="password"
-                                    value={signInPassword}
+                                    value={signinPassword}
                                     onChange={this.onPasswordChange}
                                 />
                             </div>
@@ -85,7 +87,7 @@ class SignIn extends Component {
                                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                                 type="submit"
                                 value="Sign in"
-                                onClick={this.handleSignInSubmit}
+                                onClick={() => onSigninSubmit(this.state)}
                             />
                         </div>
                         <div className="lh-copy mt3">
@@ -98,4 +100,4 @@ class SignIn extends Component {
     }
 };
 
-export default SignIn;
+export default Signin;

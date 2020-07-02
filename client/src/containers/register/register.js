@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import './register.css';
-
-// ACTIONS
-import { onUserRegistration } from '../../actions/action-creators';
 
 class Register extends Component {
     state = {
         name: '',
         email: '',
         password: ''
-    };
+    }
 
     onNameChange = e => {
         this.setState({ name: e.target.value });
@@ -26,7 +22,7 @@ class Register extends Component {
 
     render() {
         const { name, email, password } = this.state;
-        const { handleRegisterSubmit } = this.props;
+        const { onRegisterSubmit } = this.props;
 
         return (
             <article className="register signin br3 ba b--black-10 mw6 w-100 w-50-m w-25-l mw6 shadow-5 center">
@@ -73,7 +69,7 @@ class Register extends Component {
                                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                                 type="button"
                                 value="Register"
-                                onClick={() => handleRegisterSubmit(this.state)}
+                                onClick={() => onRegisterSubmit(this.state)}
                             />
                         </div>
                     </div>
@@ -83,8 +79,4 @@ class Register extends Component {
     }
 };
 
-const mapDispatch = dispatch => ({
-    handleRegisterSubmit: userFormObj => dispatch(onUserRegistration(userFormObj))
-});
-
-export default connect(null, mapDispatch)(Register);
+export default Register;

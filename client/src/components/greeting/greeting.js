@@ -8,7 +8,7 @@ const Greeting = ({ isSignedIn, name }) => {
         return <h1>{`Hi ${capitalizedName}`}</h1>;
     }
     
-    return <div className='hide'><h1>{"Welcome to Xpunge"}</h1></div>;
+    return <div className='hide'><h1>{"Welcome to autoseek"}</h1></div>;
 };
 
 export default Greeting;

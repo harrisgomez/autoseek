@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/harrisgomez/xpunge.git"
+    "url": "git+https://github.com/harrisgomez/autoseek.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/harrisgomez/xpunge/issues"
+    "url": "https://github.com/harrisgomez/autoseek/issues"
   },
-  "homepage": "https://github.com/harrisgomez/xpunge#readme",
+  "homepage": "https://github.com/harrisgomez/autoseek#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "concurrently": "^5.2.0",

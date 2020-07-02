@@ -4,10 +4,10 @@ const db = require('../database/config');
 const bcrypt = require('bcryptjs');
 
 const register = require('./register');
-const signIn = require('./sign-in');
+const signin = require('./signin');
 
 router.get('/', (_req, res) => res.json('Homepage'));
-router.post('/signin', signIn.handleSignIn(db, bcrypt));
+router.post('/signin', signin.handleSignIn(db, bcrypt));
 router.post('/register', register.handleRegister(db, bcrypt));
 
 module.exports = router;

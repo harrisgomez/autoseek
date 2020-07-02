@@ -131,15 +131,13 @@ export const doRegisterSubmit = registerFormObj => dispatch => {
         dispatch(changeRoute('home'));
     }
 
-    // Do not use catch, because errors occured during rendering
-    // should be handled by React Error Boundaries
-    // https://reactjs.org/docs/error-boundaries.html
     return registerUser(registerFormObj)
         .then(handleFetchErrorsUtil)
         .then(user => {
             dispatch(loadUser({ name: user.name}));
             dispatch(changeRoute('home'));
-        });
+        })
+        .catch(err => console.error('User registration error, please try again.', err))
 };
 
 export const doSigninSubmit = signinFormObj => dispatch => {
@@ -160,7 +158,8 @@ export const doSigninSubmit = signinFormObj => dispatch => {
         .then(user => {
             dispatch(loadUser({ name: user.name }));
             dispatch(changeRoute('home'));
-        });
+        })
+        .catch(err => console.error('User signin error, please try again.', err))
 };
 
 export const doRouteChange = route => dispatch => {

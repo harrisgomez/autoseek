@@ -17,6 +17,8 @@ app.use('/api', routes);
 
 // * Serve static assets if in prod
 if (process.env.NODE_ENV === 'production') {
+    console.log('IN PRODUCTION');
+    
     // Set the static dir
     app.use('/autoseek/', express.static('client/build'));
 

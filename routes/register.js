@@ -1,4 +1,6 @@
 const handleRegister = (db, bcrypt) => (req, res) => {
+    console.log('START REGISTER ROUTE');
+    
     const { name, email, password } = req.body;
     const iterations = 10;
 

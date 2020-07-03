@@ -22,7 +22,7 @@ const db = knex({
         }    // Running on local
 });
 
-console.log('CONNECTING TO USERS DB', db('users'));
+console.log('CONNECTING TO USERS DB', db.select('*').from('users'));
 
 
 module.exports = db;

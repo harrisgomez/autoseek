@@ -5,7 +5,7 @@ dotenv.config();
 
 // ! Resolves 'Error: self signed certificate' caused by 'SSL: true'. May have to do w/ free heroku acc(?)
 // ! Note this is not secure for production. OK for local dev
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
 console.log(process.env.DATABASE_URL);
 

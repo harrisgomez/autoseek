@@ -1,5 +1,5 @@
 const handleRegister = (db, bcrypt) => (req, res) => {
-    console.log('START REGISTER DB', db);
+    console.log('START REGISTER DB', db.select('*').from('users'));
     
     const { name, email, password } = req.body;
     const iterations = 10;

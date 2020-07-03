@@ -12,14 +12,14 @@ console.log(process.env.DATABASE_URL);
 
 const db = knex({
     client: 'pg',
-    connection: process.env.DATABASE_URL
-        ? { connectionString: process.env.DATABASE_URL, ssl: true } // Running on Heroku
-        : {
-            host: '127.0.0.1',
-            user: 'harrisg',
-            password: '',
-            database: 'autoseek_db'
-        }    // Running on local
+    connection:
+        process.env.DATABASE_URL    // Running on Heroku
+            || {
+                host: '127.0.0.1',
+                user: 'harrisg',
+                password: '',
+                database: 'autoseek_db'
+            }   // Running on local
 });
 
 console.log('CONNECTING TO USERS DB', db.select('*').from('users'));

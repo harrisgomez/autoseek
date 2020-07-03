@@ -1,6 +1,6 @@
 const handleRegister = (db, bcrypt) => (req, res) => {
     console.log('START REGISTER DB', db.select('*').from('users'));
-    
+
     const { name, email, password } = req.body;
     const iterations = 10;
 
@@ -20,19 +20,25 @@ const handleRegister = (db, bcrypt) => (req, res) => {
                     name,
                     joined: new Date()
                 };
-                
-                return db("users")
-                .transacting(trx)
-                .insert(newUser)
-                .then(() => {
-                    const loginInfo = {
-                        users_email: email,
-                        hash
-                    };
 
-                    return db('login')
+                return db('users')
+                    .transacting(trx)
+                    .insert(newUser)
+                    .then((data) => {
+                        console.log('INSERT USERS', data);
+                        
+                        const loginInfo = {
+                            users_email: email,
+                            hash
+                        };
+
+                        return db('login')
                             .transacting(trx)
                             .insert(loginInfo)
+                            .then(result => {
+                                console.log('INSERT LOGIN', result);
+                                
+                            })
                     })
                     .then(trx.commit)
                     .catch(trx.rollback);

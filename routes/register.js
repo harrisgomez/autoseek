@@ -10,10 +10,13 @@ const handleRegister = (db, bcrypt) => (req, res) => {
 
     bcrypt.genSalt(iterations, (saltErr, salt) => {
         if (saltErr) return res.status(400).json('Salt generation error.', saltErr);
-
+        console.log('SALT GENERATED');
+        
         bcrypt.hash(password, salt, (hashErr, hash) => {
             if (hashErr) return res.status(400).json('Hash generation error.', hashErr);
 
+            console.log('HASH GENERATED');
+            
             return db.transaction(trx => {
                 const newUser = {
                     email,

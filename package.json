@@ -15,7 +15,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "git-deploy": "npm run --prefix client deploy",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
-    "local-hero": "set NODE_ENV=production&& heroku local"
+    "local-hero": "NODE_ENV=production heroku local"
   },
   "repository": {
     "type": "git",

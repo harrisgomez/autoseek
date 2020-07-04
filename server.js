@@ -15,13 +15,8 @@ app.use(morgan('tiny')); // logger
 // * HTTP requests
 app.use('/api', routes);
 
-console.log('NODE_ENV is', process.env);
-
-
 // * Serve static assets if in prod
 if (process.env.NODE_ENV === 'production') {
-    console.log('IN PRODUCTION');
-    
     // Set the static dir
     app.use('/autoseek/', express.static('client/build'));
 

@@ -5,24 +5,21 @@ dotenv.config();
 
 // ! Resolves 'Error: self signed certificate' caused by 'SSL: true'. May have to do w/ free heroku acc(?)
 // ! Note this is not secure for production. OK for local dev
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-
-console.log('DATABASE_URL is', process.env.DATABASE_URL);
-
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
 const db = knex({
     client: 'pg',
-    connection:
-        process.env.DATABASE_URL    // Running on Heroku
-            || {
+    connection: process.env.DATABASE_URL
+        ? {
+            connectionString: process.env.DATABASE_URL,
+            ssl: true,
+        }   // Running on Heroku
+        : {
                 host: '127.0.0.1',
                 user: 'harrisg',
                 password: '',
                 database: 'autoseek_db'
             }   // Running on local
 });
-
-console.log('CONNECTING TO USERS DB', db.select('*').from('users'));
-
 
 module.exports = db;

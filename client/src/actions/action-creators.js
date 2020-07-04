@@ -55,8 +55,6 @@ const isFormValid = (formType, userInfo) => {
 };
 
 const registerUser = userObj => {
-    console.log('IN ACTION UTILITIES', userObj);
-    
     return fetch('/api/register', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
@@ -140,9 +138,7 @@ export const doRegisterSubmit = registerFormObj => dispatch => {
 
     return registerUser(registerFormObj)
         .then(handleFetchErrorsUtil)
-        .then(user => {
-            console.log('USER OBJ AFTER FETCH', user);
-            
+        .then(user => {            
             if (!user.name) throw new Error('User registration error, that account already exists.');
             
             dispatch(loadUser({ name: user.name}));
@@ -174,8 +170,7 @@ export const doSigninSubmit = signinFormObj => dispatch => {
 };
 
 export const doRouteChange = route => dispatch => {
-    console.log(process.env.NODE_ENV);
-    
     if (route !== 'home') dispatch(resetUser());
+    
     return dispatch(changeRoute(route));
 };

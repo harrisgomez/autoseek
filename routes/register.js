@@ -35,9 +35,9 @@ const handleRegister = (db, bcrypt) => (req, res) => {
                     .then(trx.commit)
                     .catch(trx.rollback);
             })
-            .then(result => res.json({
+            .then(success => res.json({
                 message: 'Successfully registered new user.',
-                success: result
+                success
             }))
             .catch(error => res.json({
                 message: 'Failed to register new user.',

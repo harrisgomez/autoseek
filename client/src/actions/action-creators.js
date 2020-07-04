@@ -138,7 +138,9 @@ export const doRegisterSubmit = registerFormObj => dispatch => {
 
     return registerUser(registerFormObj)
         .then(handleFetchErrorsUtil)
-        .then(() => {
+        .then(dbResponse => {
+            if (dbResponse.error) throw Error(dbResponse.error.detail);
+            
             dispatch(loadUser({ name: registerFormObj.name}));
             dispatch(changeRoute('home'));
         })

@@ -70,7 +70,7 @@ const signinUser = userObj => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userObj)
     });
-}
+};
 
 // * ACTIONS
 
@@ -174,6 +174,8 @@ export const doSigninSubmit = signinFormObj => dispatch => {
 };
 
 export const doRouteChange = route => dispatch => {
+    console.log(process.env.NODE_ENV);
+    
     if (route !== 'home') dispatch(resetUser());
     return dispatch(changeRoute(route));
 };

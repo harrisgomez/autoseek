@@ -7,7 +7,7 @@ dotenv.config();
 // ! Note this is not secure for production. OK for local dev
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
-console.log(process.env.DATABASE_URL);
+console.log('DATABASE_URL is', process.env.DATABASE_URL);
 
 
 const db = knex({

@@ -11,8 +11,8 @@ const handleRegister = (db, bcrypt) => (req, res) => {
 
         bcrypt.hash(password, salt, (hashErr, hash) => {
             if (hashErr) return res.status(400).json('Hash generation error.', hashErr);
-            
-            return db.transaction(trx => {                
+
+            return db.transaction(trx => {
                 const newUser = {
                     email,
                     name,
@@ -22,7 +22,7 @@ const handleRegister = (db, bcrypt) => (req, res) => {
                 return db('users')
                     .transacting(trx)
                     .insert(newUser)
-                    .then((data) => {                        
+                    .then(() => {
                         const loginInfo = {
                             users_email: email,
                             hash

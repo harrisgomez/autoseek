@@ -131,17 +131,15 @@ export const doRegisterSubmit = registerFormObj => dispatch => {
     const isGithubDemo = !!window.location.hostname.match('github');
 
     if (isGithubDemo && isFormValid('register', registerFormObj)) {
-        sessionStorage.setItem('localUser', JSON.stringify(registerFormObj)); // sessionStorage able to store strings only
+        sessionStorage.setItem('localUser', JSON.stringify(registerFormObj)); // sessionStorage able to store strings only        
         dispatch(loadUser(registerFormObj));
         dispatch(changeRoute('home'));
     }
 
     return registerUser(registerFormObj)
         .then(handleFetchErrorsUtil)
-        .then(user => {            
-            if (!user.name) throw new Error('User registration error, that account already exists.');
-            
-            dispatch(loadUser({ name: user.name}));
+        .then(() => {
+            dispatch(loadUser({ name: registerFormObj.name}));
             dispatch(changeRoute('home'));
         })
         .catch(err => console.error('User registration error, please try again.', err))
@@ -166,11 +164,11 @@ export const doSigninSubmit = signinFormObj => dispatch => {
             dispatch(loadUser({ name: user.name }));
             dispatch(changeRoute('home'));
         })
-        .catch(err => console.error('User signin error, please try again.', err))
+        .catch(err => console.error('User signin error, please try again.', err));
 };
 
 export const doRouteChange = route => dispatch => {
     if (route !== 'home') dispatch(resetUser());
-    
+
     return dispatch(changeRoute(route));
 };

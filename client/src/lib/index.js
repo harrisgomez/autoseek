@@ -1,8 +1,8 @@
 // Where we'll be keeping 3rd party configs
-import tiltConfig from './tilt.js';
-import particlesConfig from './particles.js';
+import tilt from './tilt.js';
+import particles from './particles.js';
 
-export {
-    tiltConfig,
-    particlesConfig
+export default {
+    tilt,
+    particles
 };

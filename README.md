@@ -1,11 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-
-# Let's get started
+# Let's jump right into it
 
 1. Clone the repo onto your local.
 
-2. Next, you'll need to sign up for your free __API Key__ here [Clarifai API](https://portal.clarifai.com/signup "Clarifai's Sign Up Page").
+2. Sign up for a free __API Key__ here [Clarifai API](https://portal.clarifai.com/signup "Clarifai's Sign Up Page").
 
 3. Once you have your API Key, you can either:
 
@@ -15,7 +12,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
      __OR__
 
-   * Insert it into the Clarifai instance directly in */client/src/container/face-recognition.js*
+   * Insert it into the Clarifai instance directly in */client/src/actions/action-creators.js*
 
      ```javascript
      export const clarifaiApp = new Clarifai.App({
@@ -53,19 +50,16 @@ Must have the __concurrently__ package installed. This will run both server and 
 After everything is up and running, go to your __localhost/3000__.
 
 
-In development, the app runs all of its static data against a test database located in *"/static/db"*.
+In development, the app uses the browser's local storage for registering new users and signing in existing ones.
 
 
-You'll have to register a fake account to sign in.
+Successfully registering a fake account or signing into an existing one should redirect you to the homepage.
 
 
-Successfully signing in should redirect you to the homepage where you can paste the url to any image.
+At the homepage there will be an input that accepts image URLs and renders the image dynamically.
 
 
-Clicking the __Detect__ button will render the image.
+Clicking the __Detect__ button makes a call to the Clarifai API's facial detection model and the app will render a box where the face is located.
 
 
-If the image contains someone's face in it, the app will attempt to narrow down and determine where on the image their face is located exactly by drawing a box around it.
-
-
-Now try using an image with multiple faces and see what happens!
+Now try using an image with multiple faces and see what happens! Push the limits and see how well it performs across different images.

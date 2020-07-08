@@ -7,16 +7,16 @@ import Register from './containers/register/register';
 import FaceRecognition from './components/face-recognition/face-recognition';
 import ImageLinkForm from './components/image-link-form/image-link-form';
 import Particles from 'react-particles-js';
-import { particlesConfig } from './lib';
+import { default as configs } from './lib';
 import './app.css';
 import 'tachyons';
 
 // ACTIONS
+import { resetFaces } from './actions/actions';
 import {
     doLoadUser,
     doRouteChange,
     doDetectFaces,
-    resetFaces,
     doRegisterSubmit,
     doSigninSubmit
 } from './actions/action-creators';
@@ -48,12 +48,12 @@ class App extends Component {
 
         return (
             <div className="App">
-                <Particles className='particles' params={particlesConfig} />
+                <Particles className='particles' params={configs.particles} />
                 <Navigation onRouteChange={handleRouteChange} isSignedIn={isSignedIn} />
                 <Header user={user} isSignedIn={isSignedIn} />
                 {
                     {
-                        'signin': <Signin onSigninSubmit={handleSigninSubmit} onRouteChange={handleRouteChange}/>,
+                        'signin': <Signin onSigninSubmit={handleSigninSubmit} onRouteChange={handleRouteChange} />,
                         'register': <Register onRegisterSubmit={handleRegisterSubmit} onRouteChange={handleRouteChange} />,
                         'home': (
                             <div>

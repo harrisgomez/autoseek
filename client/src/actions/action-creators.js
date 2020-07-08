@@ -1,16 +1,14 @@
 // ! Action creators can be impure.
 // ! Handle business logic here prior to dispatching action to the reducer.
+
 import { handleFetchErrorsUtil } from '../utils';
 import Clarifai from 'clarifai';
 import {
-    LOAD_USER,
-    RESET_USER,
-    CHANGE_ROUTE,
-    DETECT_FACES,
-    RESET_FACES,
-    REGISTER_USER,
-    SIGNIN_USER
-} from './types';
+    loadUser,
+    resetUser,
+    changeRoute,
+    detectFaces
+} from './actions';
 
 const clarifaiApp = new Clarifai.App({
     apiKey: process.env.REACT_APP_CLARIFAI_KEY
@@ -69,41 +67,6 @@ const signinUser = userObj => {
         body: JSON.stringify(userObj)
     });
 };
-
-// * ACTIONS
-
-export const loadUser = userInfo => ({
-    type: LOAD_USER,
-    payload: userInfo
-});
-
-export const resetUser = () => ({
-    type: RESET_USER
-});
-
-export const changeRoute = routeStr => ({
-    type: CHANGE_ROUTE,
-    payload: routeStr
-});
-
-export const detectFaces = facesArr => ({
-    type: DETECT_FACES,
-    payload: facesArr
-});
-
-export const resetFaces = () => ({
-    type: RESET_FACES
-});
-
-export const userSignin = signinFormObj => ({
-    type: SIGNIN_USER,
-    payload: signinFormObj
-});
-
-export const userRegistration = registerFormObj => ({
-    type: REGISTER_USER,
-    payload: registerFormObj
-});
 
 // * ACTION CREATORS 
 

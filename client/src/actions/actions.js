@@ -8,6 +8,7 @@ import {
     SIGNIN_USER
 } from './types';
 
+// Return object literals
 export const loadUser = userInfo => ({
     type: LOAD_USER,
     payload: userInfo
